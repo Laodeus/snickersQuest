@@ -1,0 +1,23 @@
+{
+  "name": "phaser",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "node server/server.js",
+    "start": "nodemon ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haerphi/phaser3-basic-structure.git"
+  },
+  "author": "haerphi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haerphi/phaser3-basic-structure/issues"
+  },
+  "homepage": "https://github.com/haerphi/phaser3-basic-structure#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
