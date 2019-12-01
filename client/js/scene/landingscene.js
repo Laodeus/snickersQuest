@@ -1,15 +1,22 @@
-var landingScene = new Phaser.Class({
+class LandingScene extends Phaser.Scene {
+  constructor() {
+    super("LandingScene");
+  }
 
-    Extends: Phaser.Scene,
+  preload() {
+    this.load.image("sky", "assets/landing/sky.png");
+  }
 
-    initialize: ()=>{
+  create() {
+    console.log("LandingScene");
+    this.add.image(400, 300, "sky");
 
-    },
-    create:()=>{
-
-    },
-    update:()=>{
-
-    }
-});
-    
+    this.input.on(
+      "pointerup",
+      function(pointer) {
+        this.scene.start("MenuScene");
+      },
+      this
+    );
+  }
+}
