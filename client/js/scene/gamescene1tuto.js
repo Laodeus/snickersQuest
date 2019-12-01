@@ -34,13 +34,14 @@ class GameScene1 extends Phaser.Scene {
     });
 
     this.player = new Player(this, 50, 50);
-    //some stuff
+
+    //camera stuff it's not in the player because the camera maybe change if the map is bigger
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
       0,
       this.physics.world.bounds.width,
-      this.physics.world.bounds.height / 2
+      this.physics.world.bounds.height
     );
 
     //colliders
