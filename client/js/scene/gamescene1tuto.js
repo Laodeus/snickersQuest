@@ -16,6 +16,11 @@ class GameScene1 extends Phaser.Scene {
       frameWidth: 76,
       frameHeight: 95
     });
+    this.load.spritesheet("Julie001", "assets/game/julie001.png", {
+      frameWidth: 86,
+      frameHeight: 120
+    });
+
     this.load.multiatlas(
       "spritesheet",
       "assets/game/spritesheet.json",
@@ -81,7 +86,7 @@ class GameScene1 extends Phaser.Scene {
     );
 
     //temp
-    this.enemy = new EnemyBasic(this, 1100, 478, "dude");
+    this.enemy = new EnemyBasic(this, 900, 300, "Julie001");
 
     //colliders
     this.physics.add.collider(this.player, this.platforms);

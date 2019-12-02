@@ -1,6 +1,6 @@
 class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, sprite) {
-    super(scene, x, y, sprite);
+  constructor(scene, x, y, key, frame) {
+    super(scene, x, y, key, frame);
     this.scene = scene;
     // display player
     scene.sys.displayList.add(this);
@@ -17,27 +17,24 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
     //some animations
     scene.anims.create({
       key: "leftEnemy1",
-      frames: scene.anims.generateFrameNumbers("dude", {
-        start: 0,
-        end: 3
+      frames: scene.anims.generateFrameNumbers("Julie001", {
+        start: 4,
+        end: 7
       }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: "turnEnemy1",
-      frames: [{ key: "dude", frame: 4 }],
-      frameRate: 20
+      frameRate: 5,
+      repeat: -1,
+      options: {
+        scaleX: -1
+      }
     });
 
     scene.anims.create({
       key: "rightEnemy1",
-      frames: scene.anims.generateFrameNumbers("dude", {
-        start: 5,
-        end: 8
+      frames: scene.anims.generateFrameNumbers("Julie001", {
+        start: 0,
+        end: 3
       }),
-      frameRate: 10,
+      frameRate: 5,
       repeat: -1
     });
   }

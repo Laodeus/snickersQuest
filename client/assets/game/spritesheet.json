@@ -1,251 +1,251 @@
 {
-	"textures": [
-		{
-			"image": "spritesheet.png",
-			"format": "RGBA8888",
-			"size": {
-				"w": 802,
-				"h": 764
-			},
-			"scale": 1,
-			"frames": [
-				{
-					"filename": "background/background-0001.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 800,
-						"h": 600
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 800,
-						"h": 600
-					},
-					"frame": {
-						"x": 1,
-						"y": 1,
-						"w": 800,
-						"h": 600
-					}
-				},
-				{
-					"filename": "deco/door-0001.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 96,
-						"h": 160
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 96,
-						"h": 160
-					},
-					"frame": {
-						"x": 1,
-						"y": 603,
-						"w": 96,
-						"h": 160
-					}
-				},
-				{
-					"filename": "platform/floor01.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 480,
-						"h": 96
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 480,
-						"h": 96
-					},
-					"frame": {
-						"x": 99,
-						"y": 603,
-						"w": 480,
-						"h": 96
-					}
-				},
-				{
-					"filename": "platform/floor_hole.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 128,
-						"h": 48
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 128,
-						"h": 48
-					},
-					"frame": {
-						"x": 99,
-						"y": 701,
-						"w": 128,
-						"h": 48
-					}
-				},
-				{
-					"filename": "platform/cardbox-0002.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 128,
-						"h": 32
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 128,
-						"h": 32
-					},
-					"frame": {
-						"x": 229,
-						"y": 701,
-						"w": 128,
-						"h": 32
-					}
-				},
-				{
-					"filename": "deco/exitpannel.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 32,
-						"h": 16
-					},
-					"frame": {
-						"x": 229,
-						"y": 735,
-						"w": 32,
-						"h": 16
-					}
-				},
-				{
-					"filename": "deco/computer-0001.gif",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 32,
-						"h": 32
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 32,
-						"h": 32
-					},
-					"frame": {
-						"x": 359,
-						"y": 701,
-						"w": 32,
-						"h": 32
-					}
-				},
-				{
-					"filename": "deco/pwrup-0001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 32
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 0,
-						"w": 28,
-						"h": 32
-					},
-					"frame": {
-						"x": 393,
-						"y": 701,
-						"w": 28,
-						"h": 32
-					}
-				},
-				{
-					"filename": "platform/table-0001.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 128,
-						"h": 64
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 128,
-						"h": 64
-					},
-					"frame": {
-						"x": 581,
-						"y": 603,
-						"w": 128,
-						"h": 64
-					}
-				},
-				{
-					"filename": "platform/cardbox-0001.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 64,
-						"h": 64
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 64,
-						"h": 64
-					},
-					"frame": {
-						"x": 711,
-						"y": 603,
-						"w": 64,
-						"h": 64
-					}
-				},
-				{
-					"filename": "platform/cardbox-0003.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 64,
-						"h": 64
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 64,
-						"h": 64
-					},
-					"frame": {
-						"x": 581,
-						"y": 669,
-						"w": 64,
-						"h": 64
-					}
-				}
-			]
-		}
-	],
-	"meta": {
-		"app": "https://www.codeandweb.com/texturepacker",
-		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:f9a938d209e76006cc905c21a9ea860a:e879a9d7f0a3f238714fdc1e4ecd5a05:729adc6043343cfda41c447ce8f464d6$"
-	}
+  "textures": [
+    {
+      "image": "spritesheet.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 802,
+        "h": 764
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "background/background-0001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 800,
+            "h": 600
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 800,
+            "h": 600
+          },
+          "frame": {
+            "x": 1,
+            "y": 1,
+            "w": 800,
+            "h": 600
+          }
+        },
+        {
+          "filename": "deco/door-0001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 96,
+            "h": 160
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 96,
+            "h": 160
+          },
+          "frame": {
+            "x": 1,
+            "y": 603,
+            "w": 96,
+            "h": 160
+          }
+        },
+        {
+          "filename": "platform/floor01.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 480,
+            "h": 96
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 480,
+            "h": 96
+          },
+          "frame": {
+            "x": 99,
+            "y": 603,
+            "w": 480,
+            "h": 96
+          }
+        },
+        {
+          "filename": "platform/floor_hole.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 48
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 48
+          },
+          "frame": {
+            "x": 99,
+            "y": 701,
+            "w": 128,
+            "h": 48
+          }
+        },
+        {
+          "filename": "platform/cardbox-0002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 32
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 32
+          },
+          "frame": {
+            "x": 229,
+            "y": 701,
+            "w": 128,
+            "h": 32
+          }
+        },
+        {
+          "filename": "deco/exitpannel.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 32,
+            "h": 16
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 16
+          },
+          "frame": {
+            "x": 229,
+            "y": 735,
+            "w": 32,
+            "h": 16
+          }
+        },
+        {
+          "filename": "deco/computer-0001.gif",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 32,
+            "h": 32
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 32
+          },
+          "frame": {
+            "x": 359,
+            "y": 701,
+            "w": 32,
+            "h": 32
+          }
+        },
+        {
+          "filename": "deco/pwrup-0001.png",
+          "rotated": false,
+          "trimmed": true,
+          "sourceSize": {
+            "w": 32,
+            "h": 32
+          },
+          "spriteSourceSize": {
+            "x": 2,
+            "y": 0,
+            "w": 28,
+            "h": 32
+          },
+          "frame": {
+            "x": 393,
+            "y": 701,
+            "w": 28,
+            "h": 32
+          }
+        },
+        {
+          "filename": "platform/table-0001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 64
+          },
+          "frame": {
+            "x": 581,
+            "y": 603,
+            "w": 128,
+            "h": 64
+          }
+        },
+        {
+          "filename": "platform/cardbox-0001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 711,
+            "y": 603,
+            "w": 64,
+            "h": 64
+          }
+        },
+        {
+          "filename": "platform/cardbox-0003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 64,
+            "h": 64
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 64,
+            "h": 64
+          },
+          "frame": {
+            "x": 581,
+            "y": 669,
+            "w": 64,
+            "h": 64
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "3.0",
+    "smartupdate": "$TexturePacker:SmartUpdate:f9a938d209e76006cc905c21a9ea860a:e879a9d7f0a3f238714fdc1e4ecd5a05:729adc6043343cfda41c447ce8f464d6$"
+  }
 }
