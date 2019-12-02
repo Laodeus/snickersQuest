@@ -12,38 +12,44 @@ class GameScene1 extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 48
     });
-
     this.load.spritesheet("Leny", "assets/game/leny-sprite.png", {
       frameWidth: 76,
       frameHeight: 95
     });
-
-    this.load.image("background", "assets/game/background/background-0001.png");
-    this.load.image("floor01", "assets/game/platform/floor01.png");
-    this.load.image("floor_hole", "assets/game/platform/floor_hole.png");
-    this.load.image("box", "assets/game/platform/cardbox-0001.png");
-    this.load.image("desk", "assets/game/platform/table-0001.png");
-    this.load.image("computer", "assets/game/deco/computer-0001.gif");
+    this.load.multiatlas(
+      "spritesheet",
+      "assets/game/spritesheet.json",
+      "assets/game"
+    );
   }
 
   create() {
     console.log("tuto scene");
 
     //setup the background
-    this.add.image(0, 0, "background").setOrigin(0);
-    this.add.image(800, 0, "background").setOrigin(0);
+    this.add
+      .image(0, 0, "spritesheet", "background/background-0001.png")
+      .setOrigin(0);
+    this.add
+      .image(800, 0, "spritesheet", "background/background-0001.png")
+      .setOrigin(0);
 
     //world for scrolling
     this.physics.world.setBounds(0, 0, 1600, 600);
 
     //duplicate ground
     this.platforms = this.physics.add.staticGroup();
-    this.platforms.create(240, 552, "floor01");
-    let ground = this.platforms.create(480 + 128, 504, "floor01").setOrigin(0).setScale(2.3,1).refreshBody();
+    this.platforms.create(240, 552, "spritesheet", "platform/floor01.png");
+    this.platforms.create(200, 472, "spritesheet", "platform/cardbox-0001.png");
+    let ground = this.platforms
+      .create(480 + 128, 504, "spritesheet", "platform/floor01.png")
+      .setOrigin(0)
+      .setScale(2.3, 1)
+      .refreshBody();
     this.platforms.add(ground);
 
     // this.holes = this.physics.add.staticGroup();
-    this.platforms.create(544, 576, "floor_hole");
+    this.platforms.create(544, 576, "spritesheet", "platform/floor_hole.png");
 
     this.player = new Player(this, 50, 460);
 
