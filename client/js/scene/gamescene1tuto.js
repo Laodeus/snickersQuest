@@ -22,6 +22,7 @@ class GameScene1 extends Phaser.Scene {
     this.load.image("floor01", "assets/game/platform/floor01.png");
     this.load.image("floor_hole", "assets/game/platform/floor_hole.png");
     this.load.image("box", "assets/game/platform/cardbox-0001.png");
+    this.load.image("desk", "assets/game/platform/table-0001.png");
   }
 
   create() {
@@ -46,6 +47,10 @@ class GameScene1 extends Phaser.Scene {
 
     this.player = new Player(this, 50, 50);
 
+    // adding platformGroup
+    this.platformUp = new platforms(this.world, this);
+    // adding an object to the platform
+    this.platformUp.create('desk');
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
