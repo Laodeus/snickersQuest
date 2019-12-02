@@ -39,18 +39,18 @@ class GameScene1 extends Phaser.Scene {
     this.platforms = this.physics.add.staticGroup();
     this.platforms.create(240, 552, "floor01");
     this.platforms.create(200, 472, "box");
-    let ground = this.add.image(480 + 128, 504, "floor01").setOrigin(0);
+    let ground = this.platforms.create(480 + 128, 504, "floor01").setOrigin(0).setScale(2.3,1).refreshBody();
     this.platforms.add(ground);
 
-    this.holes = this.physics.add.staticGroup();
-    this.holes.create(544, 576, "floor_hole");
+    // this.holes = this.physics.add.staticGroup();
+    this.platforms.create(544, 576, "floor_hole");
 
     this.player = new Player(this, 50, 50);
 
     // adding platformGroup
     this.platformUp = new platforms(this.world, this);
     // adding an object to the platform
-    this.platformUp.create('desk');
+    this.platformUp.create('desk',700,475);
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
