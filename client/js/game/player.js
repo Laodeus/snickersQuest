@@ -79,9 +79,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(500);
 
         this.anims.play("rightLeny", true);
-      } else if (this.keyS.isDown) {
-        this.y += 4;
-        this.anims.play("idleLeny", true);
       } else {
         this.setVelocityX(0);
 
