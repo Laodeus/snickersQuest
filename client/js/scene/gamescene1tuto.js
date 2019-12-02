@@ -39,22 +39,25 @@ class GameScene1 extends Phaser.Scene {
     //duplicate ground
     this.platforms = this.physics.add.staticGroup();
     this.platforms.create(240, 552, "floor01");
-    this.platforms.create(200, 472, "box");
     let ground = this.platforms.create(480 + 128, 504, "floor01").setOrigin(0).setScale(2.3,1).refreshBody();
     this.platforms.add(ground);
 
     // this.holes = this.physics.add.staticGroup();
     this.platforms.create(544, 576, "floor_hole");
 
-    this.player = new Player(this, 50, 50);
+    this.player = new Player(this, 50, 460);
 
     // adding platformGroup
     this.platformUp = new platforms(this.world, this);
     
-    // adding an object to the platform
-    this.platformUp.create('desk',1200,450);
+    // adding an object to the scene
+    this.platforms.create(1200,450,'desk').setOrigin(0).refreshBody();
     this.platformUp.create('computer',1275,400).setScale(1.7,1.7).refreshBody();
-    
+    this.platforms.create(650, 472, "box");
+    this.platforms.create(800, 472, "box");
+    this.platforms.create(775, 408, "box");
+
+
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
@@ -65,9 +68,7 @@ class GameScene1 extends Phaser.Scene {
     );
 
     //temp
-    this.enemy = new EnemyBasic(this, 200, 200, "dude");
-
-    //endtemp
+    this.enemy = new EnemyBasic(this, 1100, 478, "dude");
 
     //colliders
     this.physics.add.collider(this.player, this.platforms);
