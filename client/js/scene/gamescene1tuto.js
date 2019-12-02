@@ -48,11 +48,11 @@ class GameScene1 extends Phaser.Scene {
     this.player = new Player(this, 50, 460);
 
     // adding platformGroup
-    this.platformUp = new platforms(this.world, this);
+    this.platformUp = new Platforms(this.world, this);
     
     // adding an object to the scene
     this.platforms.create(1200,450,'desk').setOrigin(0).refreshBody();
-    this.platformUp.create('computer',1275,400).setScale(1.7,1.7).refreshBody();
+    this.platformUp.create(1275,400,'computer').setScale(1.7,1.7).refreshBody();
     this.platforms.create(650, 472, "box");
     this.platforms.create(800, 472, "box");
     this.platforms.create(775, 408, "box");
