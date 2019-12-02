@@ -13,6 +13,6 @@ class platforms extends Phaser.Physics.Arcade.StaticGroup {
     newObj.body.checkCollision.left = false;
     newObj.body.checkCollision.right = false;
     newObj.setOrigin(0).refreshBody();
-    
+    return newObj;
   }
 }
