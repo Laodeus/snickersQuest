@@ -1,0 +1,356 @@
+{
+	"textures": [
+		{
+			"image": "spritesheet.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1604,
+				"h": 1301
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "assets/game/background/background-0001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 800,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 800,
+						"h": 600
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 800,
+						"h": 600
+					}
+				},
+				{
+					"filename": "assets/landing/sky.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 800,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 800,
+						"h": 600
+					},
+					"frame": {
+						"x": 1,
+						"y": 603,
+						"w": 800,
+						"h": 600
+					}
+				},
+				{
+					"filename": "assets/game/leny-sprite.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1292,
+						"h": 95
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 0,
+						"w": 1286,
+						"h": 95
+					},
+					"frame": {
+						"x": 1,
+						"y": 1205,
+						"w": 1286,
+						"h": 95
+					}
+				},
+				{
+					"filename": "littlerpg/asset/sky.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 800,
+						"h": 600
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 800,
+						"h": 600
+					},
+					"frame": {
+						"x": 803,
+						"y": 1,
+						"w": 800,
+						"h": 600
+					}
+				},
+				{
+					"filename": "assets/game/platform/floor01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 480,
+						"h": 96
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 480,
+						"h": 96
+					},
+					"frame": {
+						"x": 803,
+						"y": 603,
+						"w": 480,
+						"h": 96
+					}
+				},
+				{
+					"filename": "assets/game/dude.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 288,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 5,
+						"w": 284,
+						"h": 43
+					},
+					"frame": {
+						"x": 1285,
+						"y": 603,
+						"w": 284,
+						"h": 43
+					}
+				},
+				{
+					"filename": "littlerpg/asset/dude.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 288,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 5,
+						"w": 284,
+						"h": 43
+					},
+					"frame": {
+						"x": 1285,
+						"y": 648,
+						"w": 284,
+						"h": 43
+					}
+				},
+				{
+					"filename": "assets/game/platform/table-0001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 64
+					},
+					"frame": {
+						"x": 1285,
+						"y": 693,
+						"w": 128,
+						"h": 64
+					}
+				},
+				{
+					"filename": "assets/game/deco/door-0001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 96,
+						"h": 160
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 96,
+						"h": 160
+					},
+					"frame": {
+						"x": 803,
+						"y": 701,
+						"w": 96,
+						"h": 160
+					}
+				},
+				{
+					"filename": "assets/game/platform/cardbox-0001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 901,
+						"y": 701,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "assets/game/platform/cardbox-0003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 64,
+						"h": 64
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 64,
+						"h": 64
+					},
+					"frame": {
+						"x": 967,
+						"y": 701,
+						"w": 64,
+						"h": 64
+					}
+				},
+				{
+					"filename": "assets/game/platform/floor_hole.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 48
+					},
+					"frame": {
+						"x": 1033,
+						"y": 701,
+						"w": 128,
+						"h": 48
+					}
+				},
+				{
+					"filename": "assets/game/platform/cardbox-0002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 32
+					},
+					"frame": {
+						"x": 1033,
+						"y": 751,
+						"w": 128,
+						"h": 32
+					}
+				},
+				{
+					"filename": "assets/game/deco/computer-0001.gif",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 32
+					},
+					"frame": {
+						"x": 901,
+						"y": 767,
+						"w": 32,
+						"h": 32
+					}
+				},
+				{
+					"filename": "assets/game/deco/pwrup-0001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 0,
+						"w": 28,
+						"h": 32
+					},
+					"frame": {
+						"x": 935,
+						"y": 767,
+						"w": 28,
+						"h": 32
+					}
+				},
+				{
+					"filename": "assets/game/deco/exitpannel.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 32,
+						"h": 16
+					},
+					"frame": {
+						"x": 965,
+						"y": 767,
+						"w": 32,
+						"h": 16
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:b70606be74ae784a5f4344e31457697d:46ce9cae3675a29e4dd25290ae4d11e5:729adc6043343cfda41c447ce8f464d6$"
+	}
+}
