@@ -79,21 +79,27 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(500);
 
         this.anims.play("rightLeny", true);
+      } else if (this.keyS.isDown) {
+        this.y += 4;
+        this.anims.play("idleLeny", true);
       } else {
         this.setVelocityX(0);
 
         this.anims.play("idleLeny", true);
       }
       if (this.keyZ.isDown) {
-        this.setVelocityY(-250);
+        this.setVelocityY(-300);
       }
     } else {
+      //TODO velocity decrease during the jump
       if (this.keyQ.isDown) {
         this.setVelocityX(-450);
         this.anims.play("jumpLeftLeny", true);
       } else if (this.keyD.isDown) {
         this.setVelocityX(450);
         this.anims.play("jumpRightLeny");
+      } else {
+        this.setVelocityX(0);
       }
     }
   }
