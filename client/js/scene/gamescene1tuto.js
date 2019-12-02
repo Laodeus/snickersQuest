@@ -50,7 +50,7 @@ class GameScene1 extends Phaser.Scene {
     // adding platformGroup
     this.platformUp = new platforms(this.world, this);
     // adding an object to the platform
-    this.platformUp.create('desk',700,475);
+    this.platformUp.create('desk',1200,450);
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
