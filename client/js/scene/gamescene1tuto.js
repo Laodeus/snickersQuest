@@ -19,7 +19,8 @@ class GameScene1 extends Phaser.Scene {
     });
 
     this.load.image("background", "assets/game/background/background-0001.png");
-    this.load.image("ground", "assets/game/ground.png");
+    this.load.image("floor01", "assets/game/platform/floor01.png");
+    this.load.image("floor_hole", "assets/game/platform/floor_hole.png");
     this.load.image("box", "assets/game/platform/cardbox-0001.png");
   }
 
@@ -34,14 +35,14 @@ class GameScene1 extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, 1600, 600);
 
     //duplicate ground
-    this.platforms = this.physics.add.staticGroup({
-      key: "ground",
-      repeat: 42,
-      setXY: { x: -350, y: 500, stepX: 64 }
-    });
+    this.platforms = this.physics.add.staticGroup();
+    this.platforms.create(240, 552, "floor01");
+    this.platforms.create(200, 472, "box");
+    let ground = this.add.image(480 + 128, 504, "floor01").setOrigin(0);
+    this.platforms.add(ground);
 
-    this.platforms.create(400, 475, "box");
-    this.platforms.create(50, 475, "box");
+    this.holes = this.physics.add.staticGroup();
+    this.holes.create(544, 576, "floor_hole");
 
     this.player = new Player(this, 50, 50);
 
