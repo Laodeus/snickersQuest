@@ -64,7 +64,7 @@ class GameScene1 extends Phaser.Scene {
       400,
       "spritesheet",
       "deco/computer-0001.gif"
-    );
+    ).setScale(1.7,1.7);
     this.platforms.create(650, 472, "spritesheet", "platform/cardbox-0001.png");
     this.platforms.create(800, 472, "spritesheet", "platform/cardbox-0001.png");
     this.platforms.create(775, 408, "spritesheet", "platform/cardbox-0001.png");
@@ -87,7 +87,7 @@ class GameScene1 extends Phaser.Scene {
     this.physics.add.collider(this.player, this.platforms);
     this.physics.add.collider(this.player, this.world);
     this.physics.add.collider(this.enemy, this.platforms);
-    this.physics.add.collider(this.player, this.platformUp);
+    this.physics.add.collider(this.player, this.platformUp.group);
   }
 
   update() {
