@@ -123,7 +123,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         ) {
           let vel = this.power;
           if (this.direction === "left") {
-            vel = -power;
+            vel = -this.power;
           }
           new Colon(this.scene, this.x + 30, this.y, vel);
         }
