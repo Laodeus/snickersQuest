@@ -67,7 +67,6 @@ class MovingPlatform extends Phaser.Physics.Arcade.StaticGroup {
       }
 
       movingObjectWhitPlatform(obj,platform){
-          console.log(obj, platform)
 
           if(platform.direction.x < 0){
             obj.x -= platform.speed.x
