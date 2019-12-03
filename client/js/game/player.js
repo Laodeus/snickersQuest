@@ -1,5 +1,5 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, colon = false) {
+  constructor(scene, x, y, enemies, colon = false) {
     super(scene, x, y, "Leny");
     this.scene = scene;
     // display player
@@ -17,6 +17,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.direction = "right"; //direction of the player
     this.colon = colon; //does he have the colon ?
     this.power = 700;
+    this.myColon = [];
+
+    this.hp = 5;
+    this.lastDmg = Date.now();
+    this.colonDmg = 3;
 
     this.unbreakablesAnims = ["attackColonLeft", "attackColonRight"];
 
@@ -98,7 +103,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       }),
       frameRate: 10
     });
-
+    //overlap for enemies
+    this.scene.physics.add.overlap(
+      this,
+      this.scene.enemies,
+      this.hitEnemy,
+      null,
+      this
+    );
     // define the key player key
     this.keyZ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
     this.keyQ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
@@ -108,6 +120,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
     this.cursors = scene.input.keyboard.createCursorKeys();
+
+    //overlap for enemies
+    this.scene.physics.add.overlap(
+      this,
+      this.scene.enemies,
+      this.loseHp,
+      null,
+      this
+    );
 
     this.anims.play("idleLenyRight", true);
   }
@@ -125,7 +146,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
           if (this.direction === "left") {
             vel = -this.power;
           }
-          new Colon(this.scene, this.x + 30, this.y, vel);
+          this.colon = false;
+          this.myColon.push(
+            new Colon(this.scene, this.x + 30, this.y, vel, this.colonDmg)
+          );
+          setTimeout(() => {
+            this.myColon[0].comeBack();
+            this.myColon.splice(0, 1);
+          }, 5000);
         }
       if (this.direction === "left") {
         this.anims.play("idleLenyLeft", true);
@@ -220,6 +248,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play("idleLenyLeft", true);
       } else if (this.direction === "right") {
         this.anims.play("idleLenyRight", true);
+      }
+    }
+  }
+
+  loseHp() {
+    if (Date.now() - this.lastDmg > 500) {
+      this.hp -= 1;
+      this.lastDmg = Date.now();
+      if (this.hp <= 0) {
+        console.log("GAME OVER");
       }
     }
   }
