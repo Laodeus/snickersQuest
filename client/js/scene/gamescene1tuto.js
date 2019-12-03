@@ -68,19 +68,22 @@ class GameScene1 extends Phaser.Scene {
     this.platforms.create(775, 408, "spritesheet", "platform/cardbox-0001.png");
 
     this.movingPlatform.createElem(
-      450,
-      450,
+      950,
+      350,
       "spritesheet",
-      "platform/cardbox-0001.png",
-      { x: 100, y: 20 }, // from where
-      { x: 100, y: 10 }, // to where
-      { x: 0.5, y: 2 }, // moving speed
-      { x: 0, y: 0.5 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+      "platform/cardbox-0002.png",
+      { x: 50, y: 0 }, // from where
+      { x: 50, y: 0 }, // to where
+      { x: 1, y: 0 }, // moving speed
+      { x: 1, y: 0 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
     );
+
+    this.gate = new Gate(this, 1475, 345, "spritesheet","deco/door-0001.png","GameScene2");
+    this.add.sprite(1522, 330, "spritesheet","deco/exitpannel.png")
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
-    this.player = new Player(this, 50, 460);
+    this.player = new Player(this, 1300, 460);
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
@@ -102,6 +105,19 @@ class GameScene1 extends Phaser.Scene {
     this.physics.add.collider(this.enemy, this.movingPlatform.group);
     this.physics.add.collider(this.movingPlatform.group, this.movingPlatform.group);
     this.physics.add.collider(this.platforms, this.movingPlatform.group);
+    
+    this.physics.add.collider(this.gate, this.movingPlatform.group);
+    this.physics.add.collider(this.gate, this.platforms);
+    this.physics.add.collider(this.gate, this.platformUp.group);
+    this.physics.add.overlap(this.gate, this.player, (door,player)=>{
+      if(!this.doorOverlapped){
+        this.gate.passTheGate(door,player);
+      }
+      this.doorOverlapped = true;
+
+    });
+
+    
   }
 
   update() {
