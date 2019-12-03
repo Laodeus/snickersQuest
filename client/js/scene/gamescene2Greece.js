@@ -50,6 +50,7 @@ class GameScene2 extends Phaser.Scene {
     // generating group object
     this.platformUp = new Platforms(this.world, this);
     this.movingPlatform = new MovingPlatform(this.world, this);
+    this.enemies = this.physics.add.group();
 
     //generating the first ground ground
 
@@ -61,23 +62,17 @@ class GameScene2 extends Phaser.Scene {
     }
     this.platformUp.createPlatforms(i * 64, 1136, "ground-tile-Right-Border");
 
-    this.gate = new Gate(
-      this,
-      500,
-      975,
-      "spritesheet",
-      "deco/door-0001.png",
-      "GameScene2"
-    );
-    this.add.sprite(545, 950, "spritesheet", "deco/exitpannel.png");
-    
     // the player and set it's property
-    this.player = new Player(this, 50, 1080, false);
+    this.player = new Player(this, 50, 1080);
     if (data.player) {
+      console.log(data.player.colon);
+      this.player.colon = data.player.colon;
       // if we have a player in the data, we can set the property of this player at this one's. and i know my english is poor phil, no need to say it :p
-    
     }
-
+    else{
+      this.player.colon = true; // for debug
+    }
+    
     //Here, i will play with the camera stuff ^^
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
@@ -86,7 +81,6 @@ class GameScene2 extends Phaser.Scene {
       this.physics.world.bounds.width,
       this.physics.world.bounds.height
     );
-    
 
     // setting the colider
 
@@ -94,26 +88,16 @@ class GameScene2 extends Phaser.Scene {
     this.physics.add.collider(this.player, this.platformUp.group);
     this.physics.add.collider(this.player,this.movingPlatform.group,this.movingPlatform.movingObjectWhitPlatform);
 
-    //enemies colider
-    // this.physics.add.collider(
-    //   this.enemies,
-    //   this.movingPlatform.group,
-    //   this.movingPlatform.movingObjectWhitPlatform
-    // );
-    // this.physics.add.collider(
-    //   this.enemies,
-    //   this.platformUp.group,
-    // );
-    
-    //door colider
-    this.physics.add.collider(this.gate, this.movingPlatform.group);
-    this.physics.add.collider(this.gate, this.platformUp.group);
-    this.physics.add.overlap(this.gate, this.player, (door, player) => {
-      if (!this.doorOverlapped) {
-        this.gate.passTheGate(door, player);
-      }
-      this.doorOverlapped = true;
-    });
+    // enemies colider
+    this.physics.add.collider(
+      this.enemies,
+      this.movingPlatform.group,
+      this.movingPlatform.movingObjectWhitPlatform
+    );
+    this.physics.add.collider(
+      this.enemies,
+      this.platformUp.group,
+    );
   }
 
   update() {

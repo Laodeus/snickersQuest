@@ -27,6 +27,9 @@ class Colon extends Phaser.Physics.Arcade.Sprite {
 
     //collider with platforms
     this.collider = this.scene.physics.add.collider(this, this.scene.platforms);
+    this.collider = this.scene.physics.add.collider(this, this.scene.movingPlatform.group,this.scene.movingPlatform.movingObjectWhitPlatform);
+    this.collider = this.scene.physics.add.collider(this, this.scene.platformUp.group);
+    
     //overlap for enemies
     this.scene.physics.add.overlap(
       this,
