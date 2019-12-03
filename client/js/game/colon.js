@@ -1,5 +1,5 @@
 class Colon extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, vel) {
+  constructor(scene, x, y, vel, dmg) {
     super(scene, x, y, "colon");
     this.scene = scene;
     // display player
@@ -8,6 +8,9 @@ class Colon extends Phaser.Physics.Arcade.Sprite {
     scene.sys.updateList.add(this);
     //this activate the physics
     scene.sys.arcadePhysics.world.enableBody(this, 0);
+
+    this.setBounce(0.3);
+    this.setCollideWorldBounds(true);
 
     //some animations
     scene.anims.create({
@@ -22,21 +25,39 @@ class Colon extends Phaser.Physics.Arcade.Sprite {
     this.setVelocityX(vel);
     this.setVelocityY(-75);
 
-    this.scene.physics.add.collider(this, scene.platforms);
+    //collider with platforms
+    this.collider = this.scene.physics.add.collider(this, this.scene.platforms);
+    //overlap for enemies
     this.scene.physics.add.overlap(
       this,
-      scene.enemies,
+      this.scene.enemies,
       this.hitEnemy,
       null,
       this
     );
+    //active overlap with the player
     setTimeout(() => {
-      this.destroy();
-    }, 1000);
+      this.scene.physics.add.overlap(
+        this,
+        this.scene.player,
+        this.comeBack,
+        null,
+        this
+      );
+    }, 100);
+
+    this.dmg = dmg;
   }
 
   hitEnemy(_, enemy) {
-    console.log("hit");
-    // enemy.destroy();
+    enemy.takeDmg(this.dmg);
+  }
+
+  comeBack() {
+    //comeback
+    if (this.scene) {
+      this.scene.player.colon = true;
+    }
+    this.destroy();
   }
 }

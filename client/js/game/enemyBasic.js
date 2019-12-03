@@ -11,6 +11,7 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
 
     this.setBounce(0.2);
     this.setCollideWorldBounds(true);
+    this.hp = 1;
 
     this.direction = "right";
 
@@ -51,6 +52,13 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
     } else if (this.direction === "left") {
       this.setVelocityX(-100);
       this.anims.play("leftEnemy1", true);
+    }
+  }
+
+  takeDmg(dmg) {
+    this.hp -= dmg;
+    if (this.hp <= 0) {
+      this.destroy();
     }
   }
 }
