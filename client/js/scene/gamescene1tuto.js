@@ -25,6 +25,11 @@ class GameScene1 extends Phaser.Scene {
       frameHeight: 33
     });
 
+    this.load.spritesheet("door", "assets/game/door.png", {
+      frameWidth: 96,
+      frameHeight: 160
+    });
+
     this.load.multiatlas(
       "spritesheet",
       "assets/game/spritesheet.json",
@@ -99,7 +104,7 @@ class GameScene1 extends Phaser.Scene {
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
-    this.player = new Player(this, 50, 460, false);
+    this.player = new Player(this, 1200, 460, false);
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
