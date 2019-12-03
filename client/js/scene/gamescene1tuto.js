@@ -67,6 +67,7 @@ class GameScene1 extends Phaser.Scene {
     // adding platformGroup
     this.platformUp = new Platforms(this.world, this);
     this.movingPlatform = new MovingPlatform(this.world, this);
+    this.enemies = this.physics.add.group();
 
     // adding an object to the scene
     this.platforms
@@ -104,7 +105,7 @@ class GameScene1 extends Phaser.Scene {
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
-    this.player = new Player(this, 1200, 460, false);
+    this.player = new Player(this, 50, 460, this.enemies);
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
@@ -114,8 +115,7 @@ class GameScene1 extends Phaser.Scene {
     );
 
     //temp
-    this.enemies = new EnemyBasic(this, 900, 300, "Julie001");
-
+    this.enemies.add(new EnemyBasic(this, 900, 300, "Julie001"));
     //colliders
     this.physics.add.collider(this.player, this.platforms);
     this.physics.add.collider(this.player, this.world);
@@ -171,12 +171,13 @@ class GameScene1 extends Phaser.Scene {
 
   update() {
     this.player.move();
-    this.enemies.move();
+    this.enemies.children.iterate(enemy => {
+      enemy.move();
+    });
     this.movingPlatform.move();
   }
 
   lootColon(player, colon) {
-    console.log("trigger");
     player.colon = true;
     this.colon.destroy();
   }
