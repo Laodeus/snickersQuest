@@ -7,10 +7,6 @@ class GameScene1 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet("dude", "assets/game/dude.png", {
-      frameWidth: 32,
-      frameHeight: 48
-    });
     this.load.spritesheet("Leny", "assets/game/leny-sprite.png", {
       frameWidth: 91,
       frameHeight: 95
@@ -18,6 +14,10 @@ class GameScene1 extends Phaser.Scene {
     this.load.spritesheet("Julie001", "assets/game/julie001.png", {
       frameWidth: 86,
       frameHeight: 120
+    });
+    this.load.spritesheet("colon_idle", "assets/game/colon_idle.png", {
+      frameWidth: 24,
+      frameHeight: 41
     });
 
     this.load.multiatlas(
@@ -75,7 +75,7 @@ class GameScene1 extends Phaser.Scene {
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
-    this.player = new Player(this, 50, 460, false);
+    this.player = new Player(this, 50, 460, true);
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
@@ -92,10 +92,39 @@ class GameScene1 extends Phaser.Scene {
     this.physics.add.collider(this.player, this.world);
     this.physics.add.collider(this.enemy, this.platforms);
     this.physics.add.collider(this.player, this.platformUp);
+
+    //animation of the map
+
+    //colon
+    this.colon = this.physics.add.sprite(650, 400, "colon_idle").setScale(2);
+    this.anims.create({
+      key: "idleColon",
+      frames: this.anims.generateFrameNumbers("colon_idle", {
+        start: 0,
+        end: 7
+      }),
+      frameRate: 4,
+      repeat: -1
+    });
+    this.colon.anims.play("idleColon", true);
+    this.physics.add.overlap(
+      this.player,
+      this.colon,
+      this.lootColon,
+      null,
+      this
+    );
+    this.physics.add.collider(this.colon, this.platforms);
   }
 
   update() {
     this.player.move();
     this.enemy.move();
+  }
+
+  lootColon(player, colon) {
+    console.log("trigger");
+    player.colon = true;
+    this.colon.destroy();
   }
 }

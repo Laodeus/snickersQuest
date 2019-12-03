@@ -17,12 +17,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.direction = "right"; //direction of the player
     this.colon = colon; //does he have the colon ?
 
+    this.unbreakablesAnims = ["attackColonLeft", "attackColonRight"];
+
     //some animations
     scene.anims.create({
       key: "idleLenyRight",
       frames: scene.anims.generateFrameNumbers("Leny", {
         start: 0,
-        end: 4
+        end: 3
       }),
       frameRate: 4,
       repeat: -1
@@ -32,7 +34,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       key: "idleLenyLeft",
       frames: scene.anims.generateFrameNumbers("Leny", {
         start: 27,
-        end: 31
+        end: 30
       }),
       frameRate: 4,
       repeat: -1
@@ -105,11 +107,33 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
     this.cursors = scene.input.keyboard.createCursorKeys();
+
+    this.anims.play("idleLenyRight", true);
   }
 
   move() {
+    //at the end of the unbreakabke animations, just start a idle animation + launch the attack
+    this.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
+      if (this.unbreakablesAnims.includes(this.anims.currentAnim.key))
+        if (
+          ["attackColonLeft", "attackColonRight"].includes(
+            this.anims.currentAnim.key
+          )
+        ) {
+          console.log("start attack");
+        }
+      if (this.direction === "left") {
+        this.anims.play("idleLenyLeft", true);
+      } else if (this.direction === "right") {
+        this.anims.play("idleLenyRight", true);
+      }
+    });
     //move to left || right is the body is touching the ground
-    if (this.body.touching.down && !this.keySpace.isDown) {
+    if (
+      this.body.touching.down &&
+      !this.keySpace.isDown &&
+      !this.unbreakablesAnims.includes(this.anims.currentAnim.key)
+    ) {
       if (this.keyQ.isDown) {
         this.setVelocityX(-500);
         this.anims.play("leftLeny", true);
@@ -123,7 +147,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       }
     }
     //move to left || right during the jump with a decrease of the velocity
-    else if (!this.keySpace.isDown) {
+    else if (
+      !this.keySpace.isDown &&
+      !this.unbreakablesAnims.includes(this.anims.currentAnim.key)
+    ) {
       if (this.keyQ.isDown) {
         this.setVelocityX(-this.jumpVel);
         this.anims.play("jumpLeftLeny", true);
@@ -137,7 +164,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     //do the attack animation and stop the player
-    if (this.keySpace.isDown) {
+    if (
+      this.keySpace.isDown &&
+      !this.unbreakablesAnims.includes(this.anims.currentAnim.key)
+    ) {
       this.setVelocityX(0);
       //attack item (boolean) + key to use the attack
       if (this.colon && this.keySpace.isDown) {
@@ -174,7 +204,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     //play idle and stop the player when any key isn't isDown
-    if (!this.keyQ.isDown && !this.keyD.isDown && !this.keySpace.isDown) {
+    if (
+      !this.keyQ.isDown &&
+      !this.keyD.isDown &&
+      !this.keySpace.isDown &&
+      !this.unbreakablesAnims.includes(this.anims.currentAnim.key)
+    ) {
       this.setVelocityX(0);
       if (this.direction === "left") {
         this.anims.play("idleLenyLeft", true);
