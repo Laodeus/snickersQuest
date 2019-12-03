@@ -20,6 +20,11 @@ class GameScene1 extends Phaser.Scene {
       frameHeight: 41
     });
 
+    this.load.spritesheet("colon", "assets/game/colon.png", {
+      frameWidth: 35,
+      frameHeight: 33
+    });
+
     this.load.multiatlas(
       "spritesheet",
       "assets/game/spritesheet.json",
@@ -85,12 +90,12 @@ class GameScene1 extends Phaser.Scene {
     );
 
     //temp
-    this.enemy = new EnemyBasic(this, 900, 300, "Julie001");
+    this.enemies = new EnemyBasic(this, 900, 300, "Julie001");
 
     //colliders
     this.physics.add.collider(this.player, this.platforms);
     this.physics.add.collider(this.player, this.world);
-    this.physics.add.collider(this.enemy, this.platforms);
+    this.physics.add.collider(this.enemies, this.platforms);
     this.physics.add.collider(this.player, this.platformUp);
 
     //animation of the map
@@ -119,7 +124,7 @@ class GameScene1 extends Phaser.Scene {
 
   update() {
     this.player.move();
-    this.enemy.move();
+    this.enemies.move();
   }
 
   lootColon(player, colon) {

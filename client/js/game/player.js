@@ -16,6 +16,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.jumpVel = 200; //jump Velocity
     this.direction = "right"; //direction of the player
     this.colon = colon; //does he have the colon ?
+    this.power = 700;
 
     this.unbreakablesAnims = ["attackColonLeft", "attackColonRight"];
 
@@ -84,7 +85,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       key: "attackColonRight",
       frames: scene.anims.generateFrameNumbers("Leny", {
         start: 9,
-        end: 13
+        end: 12
       }),
       frameRate: 10
     });
@@ -93,7 +94,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       key: "attackColonLeft",
       frames: scene.anims.generateFrameNumbers("Leny", {
         start: 22,
-        end: 26
+        end: 25
       }),
       frameRate: 10
     });
@@ -120,7 +121,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.anims.currentAnim.key
           )
         ) {
-          console.log("start attack");
+          if (this.direction === "right")
+            new Colon(this.scene, this.x + 30, this.y, this.power);
+          else if (this.direction === "left")
+            new Colon(this.scene, this.x - 30, this.y, -this.power);
         }
       if (this.direction === "left") {
         this.anims.play("idleLenyLeft", true);
