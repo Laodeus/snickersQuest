@@ -121,10 +121,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.anims.currentAnim.key
           )
         ) {
-          if (this.direction === "right")
-            new Colon(this.scene, this.x + 30, this.y, this.power);
-          else if (this.direction === "left")
-            new Colon(this.scene, this.x - 30, this.y, -this.power);
+          let vel = this.power;
+          if (this.direction === "left") {
+            vel = -power;
+          }
+          new Colon(this.scene, this.x + 30, this.y, vel);
         }
       if (this.direction === "left") {
         this.anims.play("idleLenyLeft", true);

@@ -87,12 +87,19 @@ class GameScene1 extends Phaser.Scene {
       { x: 1, y: 0 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
     );
 
-    this.gate = new Gate(this, 1475, 345, "spritesheet","deco/door-0001.png","GameScene2");
-    this.add.sprite(1522, 330, "spritesheet","deco/exitpannel.png")
+    this.gate = new Gate(
+      this,
+      1475,
+      345,
+      "spritesheet",
+      "deco/door-0001.png",
+      "GameScene2"
+    );
+    this.add.sprite(1522, 330, "spritesheet", "deco/exitpannel.png");
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
-    this.player = new Player(this, 50, 460, true);
+    this.player = new Player(this, 50, 460, false);
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
@@ -145,19 +152,16 @@ class GameScene1 extends Phaser.Scene {
       this
     );
     this.physics.add.collider(this.colon, this.platforms);
-    
+
     this.physics.add.collider(this.gate, this.movingPlatform.group);
     this.physics.add.collider(this.gate, this.platforms);
     this.physics.add.collider(this.gate, this.platformUp.group);
-    this.physics.add.overlap(this.gate, this.player, (door,player)=>{
-      if(!this.doorOverlapped){
-        this.gate.passTheGate(door,player);
+    this.physics.add.overlap(this.gate, this.player, (door, player) => {
+      if (!this.doorOverlapped) {
+        this.gate.passTheGate(door, player);
       }
       this.doorOverlapped = true;
-
     });
-
-    
   }
 
   update() {
