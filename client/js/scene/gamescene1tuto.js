@@ -29,6 +29,11 @@ class GameScene1 extends Phaser.Scene {
       frameWidth: 96,
       frameHeight: 160
     });
+    this.load.spritesheet("computer", "assets/game/computer-0001.png", {
+      frameWidth: 32,
+      frameHeight: 32
+    });
+    this.load.image("nice", "assets/game/nice.png");
 
     this.load.multiatlas(
       "spritesheet",
@@ -37,9 +42,8 @@ class GameScene1 extends Phaser.Scene {
     );
   }
 
-  create() {
-    console.log("tuto scene");
-
+  create(data) {
+    console.log(data);
     //setup the background
     this.add
       .image(0, 0, "spritesheet", "background/background-0001.png")
@@ -71,12 +75,12 @@ class GameScene1 extends Phaser.Scene {
 
     // adding an object to the scene
     this.platforms
-      .create(1200, 450, "spritesheet", "platform/table-0001.png")
+      .create(1200, 440, "spritesheet", "platform/table-0001.png")
       .setOrigin(0)
       .refreshBody();
 
-    this.platformUp
-      .createPlatforms(1275, 400, "spritesheet", "deco/computer-0001.gif")
+    this.computer = this.platformUp
+      .createPlatforms(1275, 385, "computer")
       .setScale(1.7, 1.7);
     this.platforms.create(650, 472, "spritesheet", "platform/cardbox-0001.png");
     this.platforms.create(800, 472, "spritesheet", "platform/cardbox-0001.png");
@@ -106,6 +110,9 @@ class GameScene1 extends Phaser.Scene {
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
     this.player = new Player(this, 50, 460, this.enemies);
+    if (data.player) {
+      this.player.hp = data.player.hp;
+    }
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
@@ -136,6 +143,16 @@ class GameScene1 extends Phaser.Scene {
     this.physics.add.collider(this.platforms, this.movingPlatform.group);
 
     //animation of the map
+    this.anims.create({
+      key: "idleComputer",
+      frames: this.anims.generateFrameNumbers("computer", {
+        start: 0,
+        end: 7
+      }),
+      frameRate: 4,
+      repeat: -1
+    });
+    this.computer.anims.play("idleComputer", true);
 
     //colon
     this.colon = this.physics.add.sprite(650, 400, "colon_idle");
@@ -175,6 +192,24 @@ class GameScene1 extends Phaser.Scene {
       enemy.move();
     });
     this.movingPlatform.move();
+
+    //NICE !
+    if (this.computer.x - this.player.x < 50) {
+      if (!this.nice) {
+        this.nice = this.add
+          .image(this.player.x, this.player.y, "nice")
+          .setOrigin(0);
+        setTimeout(() => {
+          this.nice.destroy();
+          this.nice = null;
+        }, 2000);
+      }
+    }
+    //nice follow
+    if (this.nice) {
+      this.nice.x = this.player.x + 20;
+      this.nice.y = this.player.y - 50;
+    }
   }
 
   lootColon(player, colon) {

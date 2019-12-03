@@ -19,8 +19,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.power = 700;
     this.myColon = [];
 
-    this.hp = 5;
-    this.lastDmg = Date.now();
+    this.hp = 2;
     this.colonDmg = 3;
 
     this.unbreakablesAnims = ["attackColonLeft", "attackColonRight"];
@@ -253,12 +252,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   loseHp() {
-    if (Date.now() - this.lastDmg > 500) {
-      this.hp -= 1;
-      this.lastDmg = Date.now();
-      if (this.hp <= 0) {
-        console.log("GAME OVER");
-      }
+    this.hp -= 1;
+    //restart lvl
+    if (this.hp <= 0) {
+      this.scene.scene.start("MenuScene");
+      this.scene.data = {};
+    } else {
+      this.scene.scene.restart({ player: this });
     }
   }
 }
