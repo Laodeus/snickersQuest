@@ -105,10 +105,25 @@ class GameScene1 extends Phaser.Scene {
     this.physics.add.collider(this.player, this.platforms);
     this.physics.add.collider(this.player, this.world);
 
+    this.physics.add.collider(this.enemies, this.platforms);
+    this.physics.add.collider(this.player, this.platformUp.group);
+
+    this.physics.add.collider(
+      this.player,
+      this.movingPlatform.group,
+      this.movingPlatform.movingObjectWhitPlatform
+    );
+    this.physics.add.collider(this.enemies, this.movingPlatform.group);
+    this.physics.add.collider(
+      this.movingPlatform.group,
+      this.movingPlatform.group
+    );
+    this.physics.add.collider(this.platforms, this.movingPlatform.group);
+
     //animation of the map
 
     //colon
-    this.colon = this.physics.add.sprite(650, 400, "colon_idle").setScale(2);
+    this.colon = this.physics.add.sprite(650, 400, "colon_idle");
     this.anims.create({
       key: "idleColon",
       frames: this.anims.generateFrameNumbers("colon_idle", {
@@ -127,18 +142,11 @@ class GameScene1 extends Phaser.Scene {
       this
     );
     this.physics.add.collider(this.colon, this.platforms);
-    this.physics.add.collider(this.enemy, this.platforms);
-    this.physics.add.collider(this.player, this.platformUp.group);
-
-    this.physics.add.collider(this.player, this.movingPlatform.group, this.movingPlatform.movingObjectWhitPlatform);
-    this.physics.add.collider(this.enemy, this.movingPlatform.group);
-    this.physics.add.collider(this.movingPlatform.group, this.movingPlatform.group);
-    this.physics.add.collider(this.platforms, this.movingPlatform.group);
   }
 
   update() {
     this.player.move();
-    this.enemy.move();
+    this.enemies.move();
     this.movingPlatform.move();
   }
 
