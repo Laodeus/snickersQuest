@@ -2,8 +2,6 @@ class GameScene1 extends Phaser.Scene {
   constructor() {
     super("GameScene1");
     this.player = null;
-    this.cursors;
-    this.platforms;
   }
 
   preload() {
@@ -104,7 +102,7 @@ class GameScene1 extends Phaser.Scene {
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
-    this.player = new Player(this, 1200, 460, false);
+    this.player = new Player(this, 50, 460, false);
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,

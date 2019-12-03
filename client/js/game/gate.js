@@ -36,10 +36,11 @@ class Gate extends Phaser.Physics.Arcade.Sprite {
     door.anims.play('doorOpen', true);
 
     this.Openanim.on('complete', ()=>{
-      this.scene.cameras.main.fade(4000, 0, 0, 0,null,(event,state)=>{
+      this.scene.cameras.main.fade(2000, 0, 0, 0,null,(event,state)=>{
         console.log(state)
         if(state == 1){
-          this.scene.scene.start("GameScene2",{player : this.scene.player})
+          console.log("launch")
+          this.scene.scene.start("GameScene2",{player:this.scene.player})
         }
       });
     });
