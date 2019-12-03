@@ -9,7 +9,7 @@ var config = {
     default: "arcade",
     arcade: {
       gravity: { y: 500 },
-      debug: false
+      debug: true
     }
   },
   scene: [GameScene1, LandingScene, MenuScene]

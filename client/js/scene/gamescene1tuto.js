@@ -61,6 +61,7 @@ class GameScene1 extends Phaser.Scene {
 
     // adding platformGroup
     this.platformUp = new Platforms(this.world, this);
+    this.movingPlatform = new MovingPlatform(this.world, this);
 
     // adding an object to the scene
     this.platforms
@@ -68,15 +69,23 @@ class GameScene1 extends Phaser.Scene {
       .setOrigin(0)
       .refreshBody();
 
-    this.platformUp.createPlatforms(
-      1275,
-      400,
-      "spritesheet",
-      "deco/computer-0001.gif"
-    );
+    this.platformUp
+      .createPlatforms(1275, 400, "spritesheet", "deco/computer-0001.gif")
+      .setScale(1.7, 1.7);
     this.platforms.create(650, 472, "spritesheet", "platform/cardbox-0001.png");
     this.platforms.create(800, 472, "spritesheet", "platform/cardbox-0001.png");
     this.platforms.create(775, 408, "spritesheet", "platform/cardbox-0001.png");
+
+    this.movingPlatform.createElem(
+      450,
+      450,
+      "spritesheet",
+      "platform/cardbox-0001.png",
+      { x: 100, y: 20 }, // from where
+      { x: 100, y: 10 }, // to where
+      { x: 0.5, y: 2 }, // moving speed
+      { x: 0, y: 0.5 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
@@ -95,8 +104,6 @@ class GameScene1 extends Phaser.Scene {
     //colliders
     this.physics.add.collider(this.player, this.platforms);
     this.physics.add.collider(this.player, this.world);
-    this.physics.add.collider(this.enemies, this.platforms);
-    this.physics.add.collider(this.player, this.platformUp);
 
     //animation of the map
 
@@ -120,11 +127,19 @@ class GameScene1 extends Phaser.Scene {
       this
     );
     this.physics.add.collider(this.colon, this.platforms);
+    this.physics.add.collider(this.enemy, this.platforms);
+    this.physics.add.collider(this.player, this.platformUp.group);
+
+    this.physics.add.collider(this.player, this.movingPlatform.group, this.movingPlatform.movingObjectWhitPlatform);
+    this.physics.add.collider(this.enemy, this.movingPlatform.group);
+    this.physics.add.collider(this.movingPlatform.group, this.movingPlatform.group);
+    this.physics.add.collider(this.platforms, this.movingPlatform.group);
   }
 
   update() {
     this.player.move();
-    this.enemies.move();
+    this.enemy.move();
+    this.movingPlatform.move();
   }
 
   lootColon(player, colon) {
