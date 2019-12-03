@@ -7,13 +7,12 @@ class GameScene1 extends Phaser.Scene {
   }
 
   preload() {
-    //will change soon
     this.load.spritesheet("dude", "assets/game/dude.png", {
       frameWidth: 32,
       frameHeight: 48
     });
     this.load.spritesheet("Leny", "assets/game/leny-sprite.png", {
-      frameWidth: 76,
+      frameWidth: 91,
       frameHeight: 95
     });
     this.load.spritesheet("Julie001", "assets/game/julie001.png", {
@@ -76,7 +75,7 @@ class GameScene1 extends Phaser.Scene {
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
 
-    this.player = new Player(this, 50, 460);
+    this.player = new Player(this, 50, 460, false);
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
