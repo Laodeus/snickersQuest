@@ -73,6 +73,11 @@ class GameScene2 extends Phaser.Scene {
       "assets/game/scene2/moving_platform_lvl01.png"
     );
 
+    this.load.image(
+      "groundSmall",
+      "assets/game/scene2/groundSmall.png"
+    );
+
     this.load.multiatlas(
       "spritesheet",
       "assets/game/spritesheet.json",
@@ -83,6 +88,7 @@ class GameScene2 extends Phaser.Scene {
   create(data) {
     // seting size of scene
     this.physics.world.setBounds(0, 0, 3200, 1200);
+    this.coord = this.add.text(50,50,"ok");
 
     // generating group object
     this.platforms = this.physics.add.staticGroup();
@@ -163,9 +169,22 @@ class GameScene2 extends Phaser.Scene {
     this.platformUp.createPlatforms(636, 400, "pillarLeft");
     this.platformUp.createPlatforms(700, 400, "pillar");
     this.platformUp.createPlatforms(764, 400, "pillarRight");
+    
+    this.platformUp.createPlatforms(200, 400, "groundSmall");
+    
+    this.platformUp.createPlatforms(100, 350, "groundSmall");
+    
+    this.platformUp.createPlatforms(0, 300, "groundSmall");
+    
+    this.platformUp.createPlatforms(100, 250, "groundSmall");
+    
+    this.platformUp.createPlatforms(200, 200, "groundSmall");
+    
+    this.platformUp.createPlatforms(0, 150, "groundSmall").setScale(2,1).refreshBody();
+
 
     // the player and set it's property
-    this.player = new Player(this, 420, 500);
+    this.player = new Player(this, 118, 200);
     if (data.player) {
       console.log(data.player.colon);
       this.player.colon = data.player.colon;
@@ -217,6 +236,10 @@ class GameScene2 extends Phaser.Scene {
       enemy.move();
     });
     this.movingPlatform.move();
+
+    this.coord.setText(`x:${this.player.x/1}, y:${this.player.y/1}`);
+    this.coord.x = this.player.x -50;
+    this.coord.y = this.player.y -100;
 
   }
 }
