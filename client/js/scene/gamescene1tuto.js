@@ -180,6 +180,7 @@ class GameScene1 extends Phaser.Scene {
     this.physics.add.collider(this.gate, this.platforms);
     this.physics.add.collider(this.gate, this.platformUp.group);
     this.physics.add.overlap(this.gate, this.player, (door, player) => {
+      console.log("potato");
       if (!this.doorOverlapped) {
         this.gate.passTheGate(door, player);
       }

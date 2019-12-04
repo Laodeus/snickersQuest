@@ -30,6 +30,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.keyQ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
     this.keyS = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.keyM = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+    this.keyL = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
     this.keySpace = scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
@@ -149,6 +151,18 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
   move() {
     //at the end of the unbreakabke animations, just start a idle animation + launch the attack
+    if (this.keyM.isDown) {
+      console.log("m")
+      this.scene.cameras.main.setZoom(0.3)
+      
+    }
+
+    if (this.keyL.isDown) {
+      console.log("m")
+      this.scene.cameras.main.setZoom(0.5)
+      
+    }
+
     this.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
       if (this.unbreakablesAnims.includes(this.anims.currentAnim.key))
         if (

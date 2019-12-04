@@ -27,6 +27,9 @@ class GameScene2 extends Phaser.Scene {
       frameWidth: 96,
       frameHeight: 160
     });
+
+    this.load.image("heart", "assets/game/hp.jpg");
+
     this.load.image(
       "ground-tile-Left-Border",
       "assets/game/scene2/ground-tile-Left-Border.png"
@@ -58,6 +61,7 @@ class GameScene2 extends Phaser.Scene {
     );
 
     this.load.image("ladder", "assets/game/scene2/ladder.png");
+    this.load.image("ladder2", "assets/game/scene2/ladder2.png");
 
     this.load.image(
       "movingPillar",
@@ -164,7 +168,7 @@ class GameScene2 extends Phaser.Scene {
 
     //lader replacement or see if we dont do a system like that
     this.ladder1 = this.ladder
-      .createElem(500, 455, "ladder")
+      .createElem(450, 455, "ladder")
       .setScale(0.8, 0.8)
       .refreshBody();
     this.ladder1.setSize(this.ladder1.width / 5, this.ladder1.height, true);
@@ -190,6 +194,103 @@ class GameScene2 extends Phaser.Scene {
     //trapp generation
     this.trapps.createTrap("Arrow", 780, 953, -90, 2500, 900);
 
+    for (i = 1; i <= 8; i++) {
+      this.platforms.create(300, 400 - i * 32, "wall-tile");
+    }
+
+    this.movingPlatform.createElem(
+      840,
+      320,
+      "movingPillar",
+      "platform/cardbox-0002.png",
+      { x: 0, y: 0 }, // from where
+      { x: 150, y: 0 }, // to where
+      { x: 1, y: 0 }, // moving speed
+      { x: 1, y: 0 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
+
+    this.platformUp.createPlatforms(1100, 320, "groundSmall");
+
+    this.movingPlatform.createElem(
+      1200,
+      320,
+      "movingPillar",
+      "platform/cardbox-0002.png",
+      { x: 0, y: 0 }, // from where
+      { x: 150, y: 0 }, // to where
+      { x: 1, y: 0 }, // moving speed
+      { x: 1, y: 0 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
+
+    this.platformUp.createPlatforms(896, 850, "pillarLeft");
+    this.platformUp.createPlatforms(960, 850, "pillar");
+    this.platformUp.createPlatforms(1024, 850, "pillar");
+    this.platformUp.createPlatforms(1088, 850, "pillar");
+    this.platformUp.createPlatforms(1152, 850, "pillar");
+    this.platformUp.createPlatforms(1216, 850, "pillarRight");
+
+    this.platformUp.createPlatforms(832, 1100, "pillarLeft");
+    this.platformUp.createPlatforms(896, 1100, "pillar");
+    this.platformUp.createPlatforms(960, 1100, "pillar");
+    this.platformUp.createPlatforms(1024, 1100, "pillar");
+    this.platformUp.createPlatforms(1088, 1100, "pillarRight");
+
+    this.platformUp.createPlatforms(1250, 1132, "groundSmall");
+
+    this.platformUp.createPlatforms(1350, 1132, "groundSmall");
+
+    this.platformUp.createPlatforms(1450, 1132, "groundSmall");
+
+    this.platformUp.createPlatforms(1330, 250, "groundSmall");
+
+    for (i = 1; i <= 8; i++) {
+      this.platforms.create(1280, 930 - i * 32, "wall-tile");
+    }
+
+    this.ladder2 = this.ladder
+      .createElem(1420, 150, "ladder2")
+      .setScale(1, 1)
+      .refreshBody();
+    this.ladder2.setSize(this.ladder2.width, this.ladder2.height / 5, true);
+
+    this.ladder3 = this.ladder
+      .createElem(1650, 250, "ladder")
+      .setScale(1, 1)
+      .refreshBody();
+    this.ladder3.setSize(this.ladder3.width / 5, this.ladder3.height, true);
+
+    this.platformUp.createPlatforms(1600, 1050, "groundSmall");
+    this.platformUp.createPlatforms(1650, 980, "groundSmall");
+    this.platformUp.createPlatforms(1700, 910, "groundSmall");
+    this.platformUp.createPlatforms(1750, 840, "groundSmall");
+    this.platformUp.createPlatforms(1800, 770, "groundSmall");
+
+    for (i = 1; 700 + i * 32 < 1200; i++) {
+      this.platforms.create(1850, 700 + i * 32, "wall-tile");
+    }
+
+    this.movingPlatform.createElem(
+      1700,
+      550,
+      "movingPillar",
+      "platform/cardbox-0002.png",
+      { x: 300, y: 0 }, // from where
+      { x: 0, y: 150 }, // to where
+      { x: 1, y: 1 }, // moving speed
+      { x: 1, y: 2 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
+
+    this.movingPlatform.createElem(
+      600,
+      350,
+      "movingPillar",
+      "platform/cardbox-0002.png",
+      { x: 300, y: 300 }, // from where
+      { x: 0, y: 0 }, // to where
+      { x: 2, y: 2 }, // moving speed
+      { x: 1, y: 1 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
+
     //enemies generation
     this.enemies.add(
       new EnemyBasic(this, 337, 418, "Julie001", null, 174, 560)
@@ -201,6 +302,10 @@ class GameScene2 extends Phaser.Scene {
       hp = data.player.hp;
     }
     this.player = new Player(this, 94, 1088, true, hp);
+
+    for (i = 1; 1850 + i * 32 <= 3400; i++) {
+      this.platformUp.createPlatforms(1800 + i * 32, 1136, "ground-tile");
+    }
 
     //Here, i will play with the camera stuff ^^
     this.cameras.main.startFollow(this.player);

@@ -28,7 +28,6 @@ class Gate extends Phaser.Physics.Arcade.Sprite {
 
   passTheGate(door, player) {
     this.Openanim = this.scene.anims.get("doorOpen"); // define a listener on the opendoor anims
-
     door.anims.play("doorOpen", true);
 
     this.Openanim.on("complete", () => {
@@ -36,6 +35,7 @@ class Gate extends Phaser.Physics.Arcade.Sprite {
         if (state == 1) {
           console.log("launch");
           this.scene.scene.start("GameScene2", { player: this.scene.player });
+          this.scene.doorOverlapped = false;
         }
       });
     });
