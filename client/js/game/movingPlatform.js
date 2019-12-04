@@ -38,7 +38,7 @@ class MovingPlatform extends Phaser.Physics.Arcade.StaticGroup {
           child.direction.x = 1;
         }
       } else if (child.direction.x > 0) {
-        if (child.x <= child.origin.x + child.movingFrom.x) {
+        if (child.x <= child.origin.x + child.movingTo.x) {
           child.x += child.speed.x;
         } else {
           child.direction.x = -1;
@@ -52,7 +52,7 @@ class MovingPlatform extends Phaser.Physics.Arcade.StaticGroup {
           child.direction.y = 1;
         }
       } else if (child.direction.y > 0) {
-        if (child.y <= child.origin.y + child.movingFrom.y) {
+        if (child.y <= child.origin.y + child.movingTo.y) {
           child.y += child.speed.y;
         } else {
           child.direction.y = -1;
@@ -63,6 +63,8 @@ class MovingPlatform extends Phaser.Physics.Arcade.StaticGroup {
   }
 
   movingObjectWhitPlatform(obj, platform) {
+
+    if(obj.body.bottom == platform.body.top){
     if (platform.direction.x < 0) {
       obj.x -= platform.speed.x;
     } else if (platform.direction.x > 0) {
@@ -73,5 +75,7 @@ class MovingPlatform extends Phaser.Physics.Arcade.StaticGroup {
     } else if (platform.direction.y > 0) {
       obj.y += platform.speed.y;
     }
+    
+  }
   }
 }

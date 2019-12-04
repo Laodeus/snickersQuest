@@ -50,6 +50,24 @@ class GameScene2 extends Phaser.Scene {
       "assets/game/scene2/wall-tileTop.png"
     );
 
+    this.load.image(
+      "pillarLeft",
+      "assets/game/scene2/ground-up-tile-Left.png"
+    );
+    this.load.image(
+      "pillar",
+      "assets/game/scene2/ground-up-tile.png"
+    );
+    this.load.image(
+      "pillarRight",
+      "assets/game/scene2/ground-up-tile-Right.png"
+    );
+
+    this.load.image(
+      "movingPillar",
+      "assets/game/scene2/moving_platform_lvl01.png"
+    );
+
     this.load.multiatlas(
       "spritesheet",
       "assets/game/spritesheet.json",
@@ -91,44 +109,59 @@ class GameScene2 extends Phaser.Scene {
     this.platforms.create(firstWallX,firstWallStarty-(i*32),"wall-tileTop").setOrigin(0).refreshBody();
     
     //first juming party
-    this.platformUp.createPlatforms(450, 1050, "ground-tile");
+    this.platformUp.createPlatforms(500, 1050, "ground-tile");
 
-    this.platformUp.createPlatforms(606, 970, "ground-tile");
-    this.platformUp.createPlatforms(670, 970, "ground-tile");
-    this.platformUp.createPlatforms(734, 970, "ground-tile");
+    this.platformUp.createPlatforms(606, 970, "pillarLeft");
+    this.platformUp.createPlatforms(670, 970, "pillar");
+    this.platformUp.createPlatforms(734, 970, "pillarRight");
     
-    this.platformUp.createPlatforms(500, 880, "ground-tile");
-    this.platformUp.createPlatforms(436, 880, "ground-tile");
-    this.platformUp.createPlatforms(372, 880, "ground-tile");
-    this.platformUp.createPlatforms(308, 880, "ground-tile");
+    this.platformUp.createPlatforms(500, 880, "pillarRight");
+    this.platformUp.createPlatforms(436, 880, "pillar");
+    this.platformUp.createPlatforms(372, 880, "pillar");
+    this.platformUp.createPlatforms(308, 880, "pillarLeft");
 
     this.platformUp.createPlatforms(200, 800, "ground-tile").setScale(0.5,0.5).refreshBody();
 
+    this.platformUp.createPlatforms(0, 720, "ground-tile");
     
-    this.platformUp.createPlatforms(50, 720, "ground-tile");
+    this.movingPlatform.createElem(
+      120,
+      660,
+      "movingPillar",
+      "platform/cardbox-0002.png",
+      { x: 10, y: 0 }, // from where
+      { x: 150, y: 0 }, // to where
+      { x: 1, y: 0 }, // moving speed
+      { x: 1, y: 0 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
 
-    this.platformUp.createPlatforms(110, 660, "ground-tile");// this will be replaced by a trap
-
-    this.platformUp.createPlatforms(436, 580, "ground-tile");
-    this.platformUp.createPlatforms(500, 580, "ground-tile");
-    this.platformUp.createPlatforms(564, 580, "ground-tile");
+    this.platformUp.createPlatforms(436, 648, "pillarLeft");
+    this.platformUp.createPlatforms(500, 648, "pillar");
+    this.platformUp.createPlatforms(564, 648, "pillarRight");
     
-    this.platformUp.createPlatforms(436, 420, "ground-tile");
-    this.platformUp.createPlatforms(500, 420, "ground-tile");
-    this.platformUp.createPlatforms(564, 420, "ground-tile");
+    
+    this.platformUp.createPlatforms(564, 484, "pillarRight");
+    this.platformUp.createPlatforms(500, 484, "pillar");
+    this.platformUp.createPlatforms(436, 484, "pillar");
+    this.platformUp.createPlatforms(372, 484, "pillar");
+    this.platformUp.createPlatforms(308, 484, "pillar");
+    this.platformUp.createPlatforms(244, 484, "pillar");
+    this.platformUp.createPlatforms(180, 484, "pillar");
+    this.platformUp.createPlatforms(116, 484, "pillarLeft");
+    
 
     //lader replacement or see if we dont do a system like that
 
-    this.platformUp.createPlatforms(500, 548, "wall-tile");
-    this.platformUp.createPlatforms(500, 516, "wall-tile");
-    this.platformUp.createPlatforms(500, 484, "wall-tile");
-    this.platformUp.createPlatforms(500, 452, "wall-tile");
-    this.platformUp.createPlatforms(500, 420, "wall-tile");
-
     
-    this.platformUp.createPlatforms(764, 304, "ground-tile");
-    this.platformUp.createPlatforms(700, 304, "ground-tile");
-    this.platformUp.createPlatforms(636, 304, "ground-tile");
+    this.platformUp.createPlatforms(500, 484, "wall-tile");
+    this.platformUp.createPlatforms(500, 516, "wall-tile");
+    this.platformUp.createPlatforms(500, 548, "wall-tile");
+    this.platformUp.createPlatforms(500, 580, "wall-tile");
+    this.platformUp.createPlatforms(500, 612, "wall-tile");
+    
+    this.platformUp.createPlatforms(764, 368, "ground-tile");
+    this.platformUp.createPlatforms(700, 368, "ground-tile");
+    this.platformUp.createPlatforms(636, 368, "ground-tile");
 
 
     // the player and set it's property

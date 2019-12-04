@@ -190,8 +190,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(this.jumpVel);
         this.anims.play("jumpRightLeny");
       }
-      if (this.jumpVel - 5 >= 0) {
-        this.jumpVel -= 3;
+      if (this.jumpVel - 7 >= 0) {
+        this.jumpVel -= 7;
       }
     }
 
