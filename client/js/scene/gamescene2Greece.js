@@ -266,6 +266,28 @@ class GameScene2 extends Phaser.Scene {
       this.platforms.create(1850, 700 + i * 32, "wall-tile");
     }
 
+    this.movingPlatform.createElem(
+      1700,
+      550,
+      "movingPillar",
+      "platform/cardbox-0002.png",
+      { x: 300, y: 0 }, // from where
+      { x: 0, y: 150 }, // to where
+      { x: 1, y: 1 }, // moving speed
+      { x: 1, y: 2 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
+
+    this.movingPlatform.createElem(
+      600,
+      350,
+      "movingPillar",
+      "platform/cardbox-0002.png",
+      { x: 300, y: 300 }, // from where
+      { x: 0, y: 0 }, // to where
+      { x: 2, y: 2 }, // moving speed
+      { x: 1, y: 1 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
+
     // the player and set it's property
     let hp = 5;
     if (data.player) {
@@ -276,7 +298,7 @@ class GameScene2 extends Phaser.Scene {
       this.platformUp.createPlatforms(1800 + i * 32, 1136, "ground-tile");
     }
 
-    this.player = new Player(this, 1300, 200, true, hp);
+    this.player = new Player(this, 730, 350, true, hp);
 
     //Here, i will play with the camera stuff ^^
     this.cameras.main.startFollow(this.player);
