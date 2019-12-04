@@ -40,6 +40,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.setupHUD();
 
     this.anims.play("idleLenyRight", true);
+        this.setSize(this.width/2, this.height, true)
+
   }
 
   initAnimations() {
@@ -133,6 +135,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       this
     );
   }
+  
 
   setupHUD() {
     this.hearts = [];
@@ -186,8 +189,24 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play("rightLeny", true);
       }
       if (this.keyZ.isDown) {
-        this.setVelocityY(-300);
-        this.jumpVel = 450;
+        if(this.onLadder){
+          this.setGravityY(0);
+          this.y -= 4;
+        }
+        else{
+          this.setVelocityY(-300);
+          this.jumpVel = 450;
+        }
+        this.onLadder = false;
+        
+      }
+      if (this.keyS.isDown) {
+        if(this.onLadder){
+          this.setGravityY(0);
+          this.y += 5;
+        }
+        this.onLadder = false;
+        
       }
     }
     //move to left || right during the jump with a decrease of the velocity

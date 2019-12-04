@@ -50,6 +50,34 @@ class GameScene2 extends Phaser.Scene {
       "assets/game/scene2/trap-arrow.bottom.png"
     );
 
+    this.load.image(
+      "pillarLeft",
+      "assets/game/scene2/ground-up-tile-Left.png"
+    );
+    this.load.image(
+      "pillar",
+      "assets/game/scene2/ground-up-tile.png"
+    );
+    this.load.image(
+      "pillarRight",
+      "assets/game/scene2/ground-up-tile-Right.png"
+    );
+
+    this.load.image(
+      "ladder",
+      "assets/game/scene2/ladder.png"
+    );
+
+    this.load.image(
+      "movingPillar",
+      "assets/game/scene2/moving_platform_lvl01.png"
+    );
+
+    this.load.image(
+      "groundSmall",
+      "assets/game/scene2/groundSmall.png"
+    );
+
     this.load.multiatlas(
       "spritesheet",
       "assets/game/spritesheet.json",
@@ -60,6 +88,7 @@ class GameScene2 extends Phaser.Scene {
   create(data) {
     // seting size of scene
     this.physics.world.setBounds(0, 0, 3200, 1200);
+    this.coord = this.add.text(50,50,"ok");
 
     // generating group object
     this.platforms = this.physics.add.staticGroup();
@@ -67,6 +96,7 @@ class GameScene2 extends Phaser.Scene {
     this.movingPlatform = new MovingPlatform(this.world, this);
 
     this.enemies = this.physics.add.group();
+    this.ladder = new Climbable(this.world, this);
 
     //generating the first ground ground
 
@@ -89,11 +119,8 @@ class GameScene2 extends Phaser.Scene {
       .refreshBody();
     i = 0;
     this.platformUp.createPlatforms(i * 64, 1136, "ground-tile-Left-Border");
-    for (; i < 23; i++) {
-      this.platforms
-        .create(firstWallX, firstWallStarty - i * 32, "wall-tile")
-        .setOrigin(0)
-        .refreshBody();
+    for (; i < 20; i++) {
+      this.platforms.create(firstWallX,firstWallStarty-(i*32),"wall-tile").setOrigin(0).refreshBody();
     }
     this.platforms
       .create(firstWallX, firstWallStarty - i * 32, "wall-tileTop")
@@ -101,49 +128,72 @@ class GameScene2 extends Phaser.Scene {
       .refreshBody();
 
     //first juming party
-    this.platformUp.createPlatforms(450, 1050, "ground-tile");
+    this.platformUp.createPlatforms(500, 1050, "ground-tile");
 
-    this.platformUp.createPlatforms(606, 970, "ground-tile");
-    this.platformUp.createPlatforms(670, 970, "ground-tile");
-    this.platformUp.createPlatforms(734, 970, "ground-tile");
-
-    this.platformUp.createPlatforms(500, 880, "ground-tile");
-    this.platformUp.createPlatforms(436, 880, "ground-tile");
-    this.platformUp.createPlatforms(372, 880, "ground-tile");
-    this.platformUp.createPlatforms(308, 880, "ground-tile");
+    this.platformUp.createPlatforms(606, 970, "pillarLeft");
+    this.platformUp.createPlatforms(670, 970, "pillar");
+    this.platformUp.createPlatforms(734, 970, "pillarRight");
+    
+    this.platformUp.createPlatforms(500, 880, "pillarRight");
+    this.platformUp.createPlatforms(436, 880, "pillar");
+    this.platformUp.createPlatforms(372, 880, "pillar");
+    this.platformUp.createPlatforms(308, 880, "pillarLeft");
 
     this.platformUp
       .createPlatforms(200, 800, "ground-tile")
       .setScale(0.5, 0.5)
       .refreshBody();
 
-    this.platformUp.createPlatforms(50, 720, "ground-tile");
+    this.platformUp.createPlatforms(0, 720, "ground-tile");
+    
+    this.movingPlatform.createElem(
+      120,
+      660,
+      "movingPillar",
+      "platform/cardbox-0002.png",
+      { x: 10, y: 0 }, // from where
+      { x: 150, y: 0 }, // to where
+      { x: 1, y: 0 }, // moving speed
+      { x: 1, y: 0 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
+    );
 
-    this.platformUp.createPlatforms(110, 660, "ground-tile"); // this will be replaced by a trap
-
-    this.platformUp.createPlatforms(436, 580, "ground-tile");
-    this.platformUp.createPlatforms(500, 580, "ground-tile");
-    this.platformUp.createPlatforms(564, 580, "ground-tile");
-
-    this.platformUp.createPlatforms(436, 420, "ground-tile");
-    this.platformUp.createPlatforms(500, 420, "ground-tile");
-    this.platformUp.createPlatforms(564, 420, "ground-tile");
+    this.platformUp.createPlatforms(436, 648, "pillarLeft");
+    this.platformUp.createPlatforms(500, 648, "pillar");
+    this.platformUp.createPlatforms(564, 648, "pillarRight");
+    
+    
+    this.platformUp.createPlatforms(564, 484, "pillarRight");
+    this.platformUp.createPlatforms(500, 484, "pillar");
+    this.platformUp.createPlatforms(436, 484, "pillar");
+    this.platformUp.createPlatforms(372, 484, "pillar");
+    this.platformUp.createPlatforms(308, 484, "pillar");
+    this.platformUp.createPlatforms(244, 484, "pillar");
+    this.platformUp.createPlatforms(180, 484, "pillar");
+    this.platformUp.createPlatforms(116, 484, "pillarLeft");
+    
 
     //lader replacement or see if we dont do a system like that
+    this.ladder1 = this.ladder.createElem(500,455,"ladder").setScale(0.8,0.8).refreshBody();
+    this.ladder1.setSize(this.ladder1.width/5, this.ladder1.height, true) 
 
-    this.platformUp.createPlatforms(500, 548, "wall-tile");
-    this.platformUp.createPlatforms(500, 516, "wall-tile");
-    this.platformUp.createPlatforms(500, 484, "wall-tile");
-    this.platformUp.createPlatforms(500, 452, "wall-tile");
-    this.platformUp.createPlatforms(500, 420, "wall-tile");
-
-    this.platformUp.createPlatforms(764, 304, "ground-tile");
-    this.platformUp.createPlatforms(700, 304, "ground-tile");
-    this.platformUp.createPlatforms(636, 304, "ground-tile");
-    this.trapps;
+    this.platformUp.createPlatforms(636, 400, "pillarLeft");
+    this.platformUp.createPlatforms(700, 400, "pillar");
+    this.platformUp.createPlatforms(764, 400, "pillarRight");
+    
+    this.platformUp.createPlatforms(200, 400, "groundSmall");
+    
+    this.platformUp.createPlatforms(100, 350, "groundSmall");
+    
+    this.platformUp.createPlatforms(0, 300, "groundSmall");
+    
+    this.platformUp.createPlatforms(100, 250, "groundSmall");
+    
+    this.platformUp.createPlatforms(200, 200, "groundSmall");
+    
+    this.platformUp.createPlatforms(0, 150, "groundSmall").setScale(2,1).refreshBody();
 
     // the player and set it's property
-    this.player = new Player(this, 50, 1080);
+    this.player = new Player(this, 118, 200);
     if (data.player) {
       console.log(data.player.colon);
       this.player.colon = data.player.colon;
@@ -161,16 +211,16 @@ class GameScene2 extends Phaser.Scene {
       this.physics.world.bounds.height
     );
 
-    // setting the colider
+    // setting the colider and overlap
 
     // player colider
-    this.physics.add.collider(this.player, this.platforms);
-    this.physics.add.collider(this.player, this.platformUp.group);
-    this.physics.add.collider(
-      this.player,
-      this.movingPlatform.group,
-      this.movingPlatform.movingObjectWhitPlatform
-    );
+    this.containCollidePlayer = [];
+    this.containCollidePlayer[0] = this.physics.add.collider(this.player, this.platforms);
+    this.containCollidePlayer[1] = this.physics.add.collider(this.player, this.platformUp.group);
+    this.containCollidePlayer[2] = this.physics.add.collider(this.player,this.movingPlatform.group,this.movingPlatform.movingObjectWhitPlatform);
+    this.containCollidePlayer[3] = this.physics.add.overlap(this.player, this.ladder.group,()=>{
+      this.ladder.onLadderModif(this);
+    });
 
     // enemies colider
     this.physics.add.collider(this.enemies, this.platforms);
@@ -179,14 +229,25 @@ class GameScene2 extends Phaser.Scene {
       this.movingPlatform.group,
       this.movingPlatform.movingObjectWhitPlatform
     );
-    this.physics.add.collider(this.enemies, this.platformUp.group);
-  }
+    this.physics.add.collider(
+      this.enemies,
+      this.platformUp.group,
+    );
 
+
+  
+  
+}
   update() {
     this.player.move();
     this.enemies.children.iterate(enemy => {
       enemy.move();
     });
     this.movingPlatform.move();
+
+    this.coord.setText(`x:${this.player.x/1}, y:${this.player.y/1}`);
+    this.coord.x = this.player.x -50;
+    this.coord.y = this.player.y -100;
+
   }
 }
