@@ -1,13 +1,13 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, enemies, colon = false) {
+  constructor(scene, x, y, colon = false, hp = 5) {
     super(scene, x, y, "Leny");
     this.scene = scene;
     // display player
-    scene.sys.displayList.add(this);
+    this.scene.sys.displayList.add(this);
     //??? this make potatoes
-    scene.sys.updateList.add(this);
+    this.scene.sys.updateList.add(this);
     //this activate the physics
-    scene.sys.arcadePhysics.world.enableBody(this, 0);
+    this.scene.sys.arcadePhysics.world.enableBody(this, 0);
 
     this.setBounce(0);
     this.setCollideWorldBounds(true);
@@ -17,99 +17,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.direction = "right"; //direction of the player
     this.colon = colon; //does he have the colon ?
     this.power = 700;
-    this.myColon = [];
+    this.myColon = null;
 
-    this.hp = 2;
+    this.hp = hp;
     this.colonDmg = 3;
 
     this.unbreakablesAnims = ["attackColonLeft", "attackColonRight"];
+    this.lastLostHp = 0;
 
-    //some animations
-    scene.anims.create({
-      key: "idleLenyRight",
-      frames: scene.anims.generateFrameNumbers("Leny", {
-        start: 0,
-        end: 3
-      }),
-      frameRate: 4,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: "idleLenyLeft",
-      frames: scene.anims.generateFrameNumbers("Leny", {
-        start: 27,
-        end: 30
-      }),
-      frameRate: 4,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: "rightLeny",
-      frames: scene.anims.generateFrameNumbers("Leny", {
-        start: 14,
-        end: 17
-      }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: "leftLeny",
-      frames: scene.anims.generateFrameNumbers("Leny", {
-        start: 18,
-        end: 21
-      }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: "jumpRightLeny",
-      frames: scene.anims.generateFrameNumbers("Leny", {
-        start: 14,
-        end: 14
-      }),
-      frameRate: 3,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: "jumpLeftLeny",
-      frames: scene.anims.generateFrameNumbers("Leny", {
-        start: 18,
-        end: 18
-      }),
-      frameRate: 3,
-      repeat: -1
-    });
-
-    scene.anims.create({
-      key: "attackColonRight",
-      frames: scene.anims.generateFrameNumbers("Leny", {
-        start: 9,
-        end: 12
-      }),
-      frameRate: 10
-    });
-
-    scene.anims.create({
-      key: "attackColonLeft",
-      frames: scene.anims.generateFrameNumbers("Leny", {
-        start: 22,
-        end: 25
-      }),
-      frameRate: 10
-    });
-    //overlap for enemies
-    this.scene.physics.add.overlap(
-      this,
-      this.scene.enemies,
-      this.hitEnemy,
-      null,
-      this
-    );
     // define the key player key
     this.keyZ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
     this.keyQ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
@@ -120,6 +35,95 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     );
     this.cursors = scene.input.keyboard.createCursorKeys();
 
+    this.initAnimations();
+    this.initOverLaps();
+    this.setupHUD();
+
+    this.anims.play("idleLenyRight", true);
+  }
+
+  initAnimations() {
+    //some animations
+    this.scene.anims.create({
+      key: "idleLenyRight",
+      frames: this.scene.anims.generateFrameNumbers("Leny", {
+        start: 0,
+        end: 3
+      }),
+      frameRate: 4,
+      repeat: -1
+    });
+
+    this.scene.anims.create({
+      key: "idleLenyLeft",
+      frames: this.scene.anims.generateFrameNumbers("Leny", {
+        start: 27,
+        end: 30
+      }),
+      frameRate: 4,
+      repeat: -1
+    });
+
+    this.scene.anims.create({
+      key: "rightLeny",
+      frames: this.scene.anims.generateFrameNumbers("Leny", {
+        start: 14,
+        end: 17
+      }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.scene.anims.create({
+      key: "leftLeny",
+      frames: this.scene.anims.generateFrameNumbers("Leny", {
+        start: 18,
+        end: 21
+      }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.scene.anims.create({
+      key: "jumpRightLeny",
+      frames: this.scene.anims.generateFrameNumbers("Leny", {
+        start: 14,
+        end: 14
+      }),
+      frameRate: 3,
+      repeat: -1
+    });
+
+    this.scene.anims.create({
+      key: "jumpLeftLeny",
+      frames: this.scene.anims.generateFrameNumbers("Leny", {
+        start: 18,
+        end: 18
+      }),
+      frameRate: 3,
+      repeat: -1
+    });
+
+    this.scene.anims.create({
+      key: "attackColonRight",
+      frames: this.scene.anims.generateFrameNumbers("Leny", {
+        start: 9,
+        end: 12
+      }),
+      frameRate: 10
+    });
+
+    this.scene.anims.create({
+      key: "attackColonLeft",
+      frames: this.scene.anims.generateFrameNumbers("Leny", {
+        start: 22,
+        end: 25
+      }),
+      frameRate: 10
+    });
+  }
+
+  initOverLaps() {
     //overlap for enemies
     this.scene.physics.add.overlap(
       this,
@@ -128,8 +132,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       null,
       this
     );
+  }
 
-    this.anims.play("idleLenyRight", true);
+  setupHUD() {
+    this.hearts = [];
+
+    for (let i = 0; i < this.hp; i++) {
+      console.log("heart");
+      this.hearts.push(this.scene.add.image(50 + i * 50, 50, "heart"));
+      this.hearts[i].setScrollFactor(0, 0);
+    }
   }
 
   move() {
@@ -146,13 +158,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             vel = -this.power;
           }
           this.colon = false;
-          this.myColon.push(
-            new Colon(this.scene, this.x + 30, this.y, vel, this.colonDmg)
+          this.myColon = new Colon(
+            this.scene,
+            this.x + 30,
+            this.y,
+            vel,
+            this.colonDmg
           );
-          setTimeout(() => {
-            this.myColon[0].comeBack();
-            this.myColon.splice(0, 1);
-          }, 5000);
         }
       if (this.direction === "left") {
         this.anims.play("idleLenyLeft", true);
@@ -190,8 +202,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocityX(this.jumpVel);
         this.anims.play("jumpRightLeny");
       }
-      if (this.jumpVel - 5 >= 0) {
-        this.jumpVel -= 3;
+      if (this.jumpVel - 7 >= 0) {
+        this.jumpVel -= 7;
       }
     }
 
@@ -252,13 +264,26 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   loseHp() {
-    this.hp -= 1;
-    //restart lvl
-    if (this.hp <= 0) {
-      this.scene.scene.start("MenuScene");
-      this.scene.data = {};
-    } else {
-      this.scene.scene.restart({ player: this });
+    if (Date.now() - this.lastLostHp > 2000) {
+      this.hp -= 1;
+      if (this.hp <= 0) {
+        this.scene.cameras.main.fade(2000, 0, 0, 0, null, (event, state) => {
+          if (state == 1) {
+            console.log("launch");
+            this.scene.scene.start("MenuScene");
+            this.scene.data = {};
+            //disable move + body +...
+          }
+        });
+      } else {
+        this.scene.cameras.main.fade(500, 0, 0, 0, null, (event, state) => {
+          if (state == 1) {
+            this.scene.scene.restart({ player: this });
+            //disable move + body +...
+          }
+        });
+      }
+      this.lastLostHp = Date.now();
     }
   }
 }

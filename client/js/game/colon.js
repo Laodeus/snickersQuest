@@ -27,9 +27,16 @@ class Colon extends Phaser.Physics.Arcade.Sprite {
 
     //collider with platforms
     this.collider = this.scene.physics.add.collider(this, this.scene.platforms);
-    this.collider = this.scene.physics.add.collider(this, this.scene.movingPlatform.group,this.scene.movingPlatform.movingObjectWhitPlatform);
-    this.collider = this.scene.physics.add.collider(this, this.scene.platformUp.group);
-    
+    this.collider = this.scene.physics.add.collider(
+      this,
+      this.scene.movingPlatform.group,
+      this.scene.movingPlatform.movingObjectWhitPlatform
+    );
+    this.collider = this.scene.physics.add.collider(
+      this,
+      this.scene.platformUp.group
+    );
+
     //overlap for enemies
     this.scene.physics.add.overlap(
       this,
@@ -38,7 +45,7 @@ class Colon extends Phaser.Physics.Arcade.Sprite {
       null,
       this
     );
-    //active overlap with the player
+    //active overlap with the player with a little delay
     setTimeout(() => {
       this.scene.physics.add.overlap(
         this,
@@ -48,6 +55,12 @@ class Colon extends Phaser.Physics.Arcade.Sprite {
         this
       );
     }, 100);
+
+    setTimeout(() => {
+      if (this.scene) {
+        this.comeBack();
+      }
+    }, 5000);
 
     this.dmg = dmg;
   }

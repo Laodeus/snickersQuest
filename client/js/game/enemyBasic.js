@@ -38,6 +38,16 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
       frameRate: 5,
       repeat: -1
     });
+
+    this.texts = [
+      "Workshop !",
+      "Veille !",
+      "Leny !!!",
+      "Bics !!",
+      "J'ai faim !"
+    ];
+    this.bubbleShow();
+    this.bubleChangeText();
   }
 
   move() {
@@ -53,12 +63,54 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityX(-100);
       this.anims.play("leftEnemy1", true);
     }
+    if (this.bubble) {
+      this.bubbleUpdate();
+    }
   }
 
   takeDmg(dmg) {
     this.hp -= dmg;
     if (this.hp <= 0) {
       this.destroy();
+      this.bubble.destroy();
+      this.textBubble.destroy();
+      delete this.bubble;
+      delete this.textBubble;
+    }
+  }
+
+  bubbleShow() {
+    let spaceX = 20;
+    let spaceY = -60;
+
+    this.bubble = this.scene.add
+      .image(this.x + spaceX, this.y + spaceY, "emptyBubble")
+      .setOrigin(0);
+
+    this.textBubble = this.scene.add.text(
+      this.x + spaceX,
+      this.y + spaceY,
+      this.texts[0],
+      {
+        fontFamily: '"Roboto Condensed"',
+        color: "black"
+      }
+    );
+  }
+  bubbleUpdate() {
+    this.bubble.x = this.x + 20;
+    this.bubble.y = this.y - 60;
+    this.textBubble.x = this.x + 20;
+    this.textBubble.y = this.y - 60;
+  }
+
+  bubleChangeText() {
+    if (this.textBubble && this.bubble) {
+      let rng = Phaser.Math.Between(0, this.texts.length - 1);
+      this.textBubble.text = this.texts[rng];
+      setTimeout(() => {
+        this.bubleChangeText();
+      }, 1000);
     }
   }
 }

@@ -9,6 +9,7 @@ class GameScene1 extends Phaser.Scene {
       frameWidth: 91,
       frameHeight: 95
     });
+    this.load.image("heart", "assets/game/hp.jpg");
     this.load.spritesheet("Julie001", "assets/game/julie001.png", {
       frameWidth: 86,
       frameHeight: 120
@@ -32,6 +33,7 @@ class GameScene1 extends Phaser.Scene {
       frameHeight: 32
     });
     this.load.image("nice", "assets/game/nice.png");
+    this.load.image("emptyBubble", "assets/game/emptyBubble.png");
 
     this.load.multiatlas(
       "spritesheet",
@@ -106,11 +108,12 @@ class GameScene1 extends Phaser.Scene {
     this.add.sprite(1522, 330, "spritesheet", "deco/exitpannel.png");
 
     //camera stuff it's not in the player because the camera maybe change if the map is bigger
-
-    this.player = new Player(this, 50, 460, this.enemies);
+    let hp = 5;
     if (data.player) {
-      this.player.hp = data.player.hp;
+      hp = data.player.hp;
     }
+    this.player = new Player(this, 50, 460, false, hp);
+
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(
       0,
