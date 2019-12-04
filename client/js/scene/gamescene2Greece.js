@@ -64,6 +64,11 @@ class GameScene2 extends Phaser.Scene {
     );
 
     this.load.image(
+      "ladder",
+      "assets/game/scene2/ladder.png"
+    );
+
+    this.load.image(
       "movingPillar",
       "assets/game/scene2/moving_platform_lvl01.png"
     );
@@ -84,6 +89,7 @@ class GameScene2 extends Phaser.Scene {
     this.platformUp = new Platforms(this.world, this);
     this.movingPlatform = new MovingPlatform(this.world, this);
     this.enemies = this.physics.add.group();
+    this.ladder = new Climbable(this.world, this);
 
     //generating the first ground ground
 
@@ -103,7 +109,7 @@ class GameScene2 extends Phaser.Scene {
     this.platforms.create(firstWallX,firstWallStarty,"wall-tileBottom").setOrigin(0).refreshBody();
     i=0;
     this.platformUp.createPlatforms(i * 64, 1136, "ground-tile-Left-Border");
-    for (; i < 23; i++) {
+    for (; i < 20; i++) {
       this.platforms.create(firstWallX,firstWallStarty-(i*32),"wall-tile").setOrigin(0).refreshBody();
     }
     this.platforms.create(firstWallX,firstWallStarty-(i*32),"wall-tileTop").setOrigin(0).refreshBody();
@@ -151,21 +157,15 @@ class GameScene2 extends Phaser.Scene {
     
 
     //lader replacement or see if we dont do a system like that
+    this.ladder1 = this.ladder.createElem(500,455,"ladder").setScale(0.8,0.8).refreshBody();
+    this.ladder1.setSize(this.ladder1.width/5, this.ladder1.height, true) 
 
-    
-    this.platformUp.createPlatforms(500, 484, "wall-tile");
-    this.platformUp.createPlatforms(500, 516, "wall-tile");
-    this.platformUp.createPlatforms(500, 548, "wall-tile");
-    this.platformUp.createPlatforms(500, 580, "wall-tile");
-    this.platformUp.createPlatforms(500, 612, "wall-tile");
-    
-    this.platformUp.createPlatforms(764, 368, "ground-tile");
-    this.platformUp.createPlatforms(700, 368, "ground-tile");
-    this.platformUp.createPlatforms(636, 368, "ground-tile");
-
+    this.platformUp.createPlatforms(636, 400, "pillarLeft");
+    this.platformUp.createPlatforms(700, 400, "pillar");
+    this.platformUp.createPlatforms(764, 400, "pillarRight");
 
     // the player and set it's property
-    this.player = new Player(this, 50, 1080);
+    this.player = new Player(this, 420, 500);
     if (data.player) {
       console.log(data.player.colon);
       this.player.colon = data.player.colon;
@@ -184,13 +184,17 @@ class GameScene2 extends Phaser.Scene {
       this.physics.world.bounds.height
     );
 
-    // setting the colider
+    // setting the colider and overlap
 
     // player colider
-    this.physics.add.collider(this.player, this.platforms);
-    this.physics.add.collider(this.player, this.platformUp.group);
-    this.physics.add.collider(this.player,this.movingPlatform.group,this.movingPlatform.movingObjectWhitPlatform);
-    
+    this.containCollidePlayer = [];
+    this.containCollidePlayer[0] = this.physics.add.collider(this.player, this.platforms);
+    this.containCollidePlayer[1] = this.physics.add.collider(this.player, this.platformUp.group);
+    this.containCollidePlayer[2] = this.physics.add.collider(this.player,this.movingPlatform.group,this.movingPlatform.movingObjectWhitPlatform);
+    this.containCollidePlayer[3] = this.physics.add.overlap(this.player, this.ladder.group,()=>{
+      this.ladder.onLadderModif(this);
+    });
+
     // enemies colider
     this.physics.add.collider(this.enemies, this.platforms);
     this.physics.add.collider(
@@ -202,13 +206,17 @@ class GameScene2 extends Phaser.Scene {
       this.enemies,
       this.platformUp.group,
     );
-  }
 
+
+  
+  
+}
   update() {
     this.player.move();
     this.enemies.children.iterate(enemy => {
       enemy.move();
     });
     this.movingPlatform.move();
+
   }
 }
