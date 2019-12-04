@@ -50,33 +50,21 @@ class GameScene2 extends Phaser.Scene {
       "assets/game/scene2/trap-arrow.bottom.png"
     );
 
-    this.load.image(
-      "pillarLeft",
-      "assets/game/scene2/ground-up-tile-Left.png"
-    );
-    this.load.image(
-      "pillar",
-      "assets/game/scene2/ground-up-tile.png"
-    );
+    this.load.image("pillarLeft", "assets/game/scene2/ground-up-tile-Left.png");
+    this.load.image("pillar", "assets/game/scene2/ground-up-tile.png");
     this.load.image(
       "pillarRight",
       "assets/game/scene2/ground-up-tile-Right.png"
     );
 
-    this.load.image(
-      "ladder",
-      "assets/game/scene2/ladder.png"
-    );
+    this.load.image("ladder", "assets/game/scene2/ladder.png");
 
     this.load.image(
       "movingPillar",
       "assets/game/scene2/moving_platform_lvl01.png"
     );
 
-    this.load.image(
-      "groundSmall",
-      "assets/game/scene2/groundSmall.png"
-    );
+    this.load.image("groundSmall", "assets/game/scene2/groundSmall.png");
 
     this.load.multiatlas(
       "spritesheet",
@@ -88,7 +76,7 @@ class GameScene2 extends Phaser.Scene {
   create(data) {
     // seting size of scene
     this.physics.world.setBounds(0, 0, 3200, 1200);
-    this.coord = this.add.text(50,50,"ok");
+    this.coord = this.add.text(50, 50, "ok");
 
     // generating group object
     this.platforms = this.physics.add.staticGroup();
@@ -120,7 +108,10 @@ class GameScene2 extends Phaser.Scene {
     i = 0;
     this.platformUp.createPlatforms(i * 64, 1136, "ground-tile-Left-Border");
     for (; i < 20; i++) {
-      this.platforms.create(firstWallX,firstWallStarty-(i*32),"wall-tile").setOrigin(0).refreshBody();
+      this.platforms
+        .create(firstWallX, firstWallStarty - i * 32, "wall-tile")
+        .setOrigin(0)
+        .refreshBody();
     }
     this.platforms
       .create(firstWallX, firstWallStarty - i * 32, "wall-tileTop")
@@ -133,7 +124,7 @@ class GameScene2 extends Phaser.Scene {
     this.platformUp.createPlatforms(606, 970, "pillarLeft");
     this.platformUp.createPlatforms(670, 970, "pillar");
     this.platformUp.createPlatforms(734, 970, "pillarRight");
-    
+
     this.platformUp.createPlatforms(500, 880, "pillarRight");
     this.platformUp.createPlatforms(436, 880, "pillar");
     this.platformUp.createPlatforms(372, 880, "pillar");
@@ -145,7 +136,7 @@ class GameScene2 extends Phaser.Scene {
       .refreshBody();
 
     this.platformUp.createPlatforms(0, 720, "ground-tile");
-    
+
     this.movingPlatform.createElem(
       120,
       660,
@@ -160,8 +151,7 @@ class GameScene2 extends Phaser.Scene {
     this.platformUp.createPlatforms(436, 648, "pillarLeft");
     this.platformUp.createPlatforms(500, 648, "pillar");
     this.platformUp.createPlatforms(564, 648, "pillarRight");
-    
-    
+
     this.platformUp.createPlatforms(564, 484, "pillarRight");
     this.platformUp.createPlatforms(500, 484, "pillar");
     this.platformUp.createPlatforms(436, 484, "pillar");
@@ -170,37 +160,39 @@ class GameScene2 extends Phaser.Scene {
     this.platformUp.createPlatforms(244, 484, "pillar");
     this.platformUp.createPlatforms(180, 484, "pillar");
     this.platformUp.createPlatforms(116, 484, "pillarLeft");
-    
 
     //lader replacement or see if we dont do a system like that
-    this.ladder1 = this.ladder.createElem(500,455,"ladder").setScale(0.8,0.8).refreshBody();
-    this.ladder1.setSize(this.ladder1.width/5, this.ladder1.height, true) 
+    this.ladder1 = this.ladder
+      .createElem(500, 455, "ladder")
+      .setScale(0.8, 0.8)
+      .refreshBody();
+    this.ladder1.setSize(this.ladder1.width / 5, this.ladder1.height, true);
 
     this.platformUp.createPlatforms(636, 400, "pillarLeft");
     this.platformUp.createPlatforms(700, 400, "pillar");
     this.platformUp.createPlatforms(764, 400, "pillarRight");
-    
+
     this.platformUp.createPlatforms(200, 400, "groundSmall");
-    
+
     this.platformUp.createPlatforms(100, 350, "groundSmall");
-    
+
     this.platformUp.createPlatforms(0, 300, "groundSmall");
-    
+
     this.platformUp.createPlatforms(100, 250, "groundSmall");
-    
+
     this.platformUp.createPlatforms(200, 200, "groundSmall");
-    
-    this.platformUp.createPlatforms(0, 150, "groundSmall").setScale(2,1).refreshBody();
+
+    this.platformUp
+      .createPlatforms(0, 150, "groundSmall")
+      .setScale(2, 1)
+      .refreshBody();
 
     // the player and set it's property
-    this.player = new Player(this, 118, 200);
-    if (data.player) {
-      console.log(data.player.colon);
-      this.player.colon = data.player.colon;
-      // if we have a player in the data, we can set the property of this player at this one's. and i know my english is poor phil, no need to say it :p
-    } else {
-      this.player.colon = true; // for debug
+    let hp = 5;
+    if (data) {
+      hp = data.player.hp;
     }
+    this.player = new Player(this, 118, 200, true, hp);
 
     //Here, i will play with the camera stuff ^^
     this.cameras.main.startFollow(this.player);
@@ -215,12 +207,26 @@ class GameScene2 extends Phaser.Scene {
 
     // player colider
     this.containCollidePlayer = [];
-    this.containCollidePlayer[0] = this.physics.add.collider(this.player, this.platforms);
-    this.containCollidePlayer[1] = this.physics.add.collider(this.player, this.platformUp.group);
-    this.containCollidePlayer[2] = this.physics.add.collider(this.player,this.movingPlatform.group,this.movingPlatform.movingObjectWhitPlatform);
-    this.containCollidePlayer[3] = this.physics.add.overlap(this.player, this.ladder.group,()=>{
-      this.ladder.onLadderModif(this);
-    });
+    this.containCollidePlayer[0] = this.physics.add.collider(
+      this.player,
+      this.platforms
+    );
+    this.containCollidePlayer[1] = this.physics.add.collider(
+      this.player,
+      this.platformUp.group
+    );
+    this.containCollidePlayer[2] = this.physics.add.collider(
+      this.player,
+      this.movingPlatform.group,
+      this.movingPlatform.movingObjectWhitPlatform
+    );
+    this.containCollidePlayer[3] = this.physics.add.overlap(
+      this.player,
+      this.ladder.group,
+      () => {
+        this.ladder.onLadderModif(this);
+      }
+    );
 
     // enemies colider
     this.physics.add.collider(this.enemies, this.platforms);
@@ -229,15 +235,8 @@ class GameScene2 extends Phaser.Scene {
       this.movingPlatform.group,
       this.movingPlatform.movingObjectWhitPlatform
     );
-    this.physics.add.collider(
-      this.enemies,
-      this.platformUp.group,
-    );
-
-
-  
-  
-}
+    this.physics.add.collider(this.enemies, this.platformUp.group);
+  }
   update() {
     this.player.move();
     this.enemies.children.iterate(enemy => {
@@ -245,9 +244,8 @@ class GameScene2 extends Phaser.Scene {
     });
     this.movingPlatform.move();
 
-    this.coord.setText(`x:${this.player.x/1}, y:${this.player.y/1}`);
-    this.coord.x = this.player.x -50;
-    this.coord.y = this.player.y -100;
-
+    this.coord.setText(`x:${this.player.x / 1}, y:${this.player.y / 1}`);
+    this.coord.x = this.player.x - 50;
+    this.coord.y = this.player.y - 100;
   }
 }
