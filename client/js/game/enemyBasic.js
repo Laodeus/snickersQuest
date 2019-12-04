@@ -1,8 +1,12 @@
 class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, key, frame) {
+  constructor(scene, x, y, key, frame, xMin = null, xMax = null) {
     super(scene, x, y, key, frame);
+    this.limits = null;
+    if (xMax != null && xMin != null) {
+      this.limits = { xMin, xMax };
+    }
     this.scene = scene;
-    // display player
+    // display
     scene.sys.displayList.add(this);
     //??? this make potatoes
     scene.sys.updateList.add(this);
@@ -50,12 +54,29 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
     this.bubleChangeText();
   }
 
-  move() {
-    if (this.body.touching.right) {
-      this.direction = "left";
-    } else if (this.body.touching.left) {
-      this.direction = "right";
+  choseDirection() {
+    //if no limits
+    if (!this.limits) {
+      if (this.body.touching.right) {
+        this.direction = "left";
+      } else if (this.body.touching.left) {
+        this.direction = "right";
+      }
     }
+    //with limits
+    else {
+      if (this.x < this.limits.xMin) {
+        this.direction = "right";
+      } else if (this.x > this.limits.xMax) {
+        this.direction = "left";
+      }
+    }
+  }
+
+  move() {
+    this.choseDirection();
+
+    //move
     if (this.direction === "right") {
       this.setVelocityX(100);
       this.anims.play("rightEnemy1", true);

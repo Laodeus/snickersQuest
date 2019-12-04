@@ -187,9 +187,13 @@ class GameScene2 extends Phaser.Scene {
       .setScale(2, 1)
       .refreshBody();
 
+    this.enemies.add(
+      new EnemyBasic(this, 337, 418, "Julie001", null, 174, 560)
+    );
+
     // the player and set it's property
     let hp = 5;
-    if (data) {
+    if (data.player) {
       hp = data.player.hp;
     }
     this.player = new Player(this, 118, 200, true, hp);
@@ -229,7 +233,7 @@ class GameScene2 extends Phaser.Scene {
     );
 
     // enemies colider
-    this.physics.add.collider(this.enemies, this.platforms);
+    this.physics.add.collider(this.enemies, this.platformsd);
     this.physics.add.collider(
       this.enemies,
       this.movingPlatform.group,
