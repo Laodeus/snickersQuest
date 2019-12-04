@@ -1,9 +1,18 @@
 class TrappIndustry {
-  constructor(scene, x, y, sprite) {
-    super(scene, x, y, sprite);
+  constructor(scene) {
     this.scene = scene;
-
     this.group = this.scene.physics.add.staticGroup();
   }
-  move() {}
+
+  createTrap(type, x, y, angle, delay, power) {
+    if (type.toLowerCase() === "arrow") {
+      this.group.add(new TrappArrow(this.scene, x, y, angle, delay, power));
+    }
+  }
+
+  move() {
+    this.group.children.iterate(child => {
+      trap.trigger();
+    });
+  }
 }

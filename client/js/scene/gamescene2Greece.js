@@ -75,6 +75,7 @@ class GameScene2 extends Phaser.Scene {
 
   create(data) {
     // seting size of scene
+    this.cameras.main.setBackgroundColor("#5aa3dc");
     this.physics.world.setBounds(0, 0, 3200, 1200);
     this.coord = this.add.text(50, 50, "ok");
 
@@ -82,7 +83,7 @@ class GameScene2 extends Phaser.Scene {
     this.platforms = this.physics.add.staticGroup();
     this.platformUp = new Platforms(this.world, this);
     this.movingPlatform = new MovingPlatform(this.world, this);
-
+    this.trapps = new TrappIndustry(this);
     this.enemies = this.physics.add.group();
     this.ladder = new Climbable(this.world, this);
 
@@ -186,7 +187,10 @@ class GameScene2 extends Phaser.Scene {
       .createPlatforms(0, 150, "groundSmall")
       .setScale(2, 1)
       .refreshBody();
+    //trapp generation
+    this.trapps.createTrap("Arrow", 780, 953, -90, 2500, 900);
 
+    //enemies generation
     this.enemies.add(
       new EnemyBasic(this, 337, 418, "Julie001", null, 174, 560)
     );
@@ -196,7 +200,7 @@ class GameScene2 extends Phaser.Scene {
     if (data.player) {
       hp = data.player.hp;
     }
-    this.player = new Player(this, 118, 200, true, hp);
+    this.player = new Player(this, 94, 1088, true, hp);
 
     //Here, i will play with the camera stuff ^^
     this.cameras.main.startFollow(this.player);
@@ -240,6 +244,10 @@ class GameScene2 extends Phaser.Scene {
       this.movingPlatform.movingObjectWhitPlatform
     );
     this.physics.add.collider(this.enemies, this.platformUp.group);
+
+    //trap collider
+    this.physics.add.collider(this.trapps.group, this.platforms);
+    this.physics.add.collider(this.trapps.group, this.platformUp.group);
   }
   update() {
     this.player.move();
