@@ -3,10 +3,10 @@ class TrappFire extends Trapp {
     super(scene, x, y, "trappFire");
     //Remove this later
     this.rngId = Phaser.Math.Between(0, 100);
-    this.textBubble = this.scene.add.text(this.x, this.y, this.rngId, {
-      fontFamily: '"Roboto Condensed"',
-      color: "black"
-    });
+    // this.textBubble = this.scene.add.text(this.x, this.y, this.rngId, {
+    //   fontFamily: '"Roboto Condensed"',
+    //   color: "black"
+    // });
 
     this.body.setAllowGravity(false);
 
