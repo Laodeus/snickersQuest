@@ -28,6 +28,15 @@ class GameScene2 extends Phaser.Scene {
       frameHeight: 160
     });
 
+    this.load.spritesheet(
+      "trappFire",
+      "assets/game/scene2/trap-fireAll-001.png",
+      {
+        frameWidth: 95,
+        frameHeight: 254
+      }
+    );
+
     this.load.image("heart", "assets/game/hp.jpg");
 
     this.load.image(
@@ -193,6 +202,7 @@ class GameScene2 extends Phaser.Scene {
       .refreshBody();
     //trapp generation
     this.trapps.createTrap("Arrow", 780, 953, -90, 2500, 900);
+    this.trapps.createTrap("Fire", 750, 900, 0, 2500, 0);
 
     for (i = 1; i <= 8; i++) {
       this.platforms.create(300, 400 - i * 32, "wall-tile");
@@ -360,6 +370,7 @@ class GameScene2 extends Phaser.Scene {
       enemy.move();
     });
     this.movingPlatform.move();
+    this.trapps.trigger();
 
     this.coord.setText(`x:${this.player.x / 1}, y:${this.player.y / 1}`);
     this.coord.x = this.player.x - 50;
