@@ -124,7 +124,7 @@ class GameScene2 extends Phaser.Scene {
       .refreshBody();
 
     //first juming party
-    this.platformUp.createPlatforms(500, 1050, "ground-tile");
+    this.platformUp.createPlatforms(500, 1050, "groundSmall");
 
     this.platformUp.createPlatforms(606, 970, "pillarLeft");
     this.platformUp.createPlatforms(670, 970, "pillar");
@@ -135,12 +135,9 @@ class GameScene2 extends Phaser.Scene {
     this.platformUp.createPlatforms(372, 880, "pillar");
     this.platformUp.createPlatforms(308, 880, "pillarLeft");
 
-    this.platformUp
-      .createPlatforms(200, 800, "ground-tile")
-      .setScale(0.5, 0.5)
-      .refreshBody();
+    this.platformUp.createPlatforms(200, 800, "groundSmall");
 
-    this.platformUp.createPlatforms(0, 720, "ground-tile");
+    this.platformUp.createPlatforms(0, 720, "groundSmall");
 
     this.movingPlatform.createElem(
       120,
@@ -291,9 +288,43 @@ class GameScene2 extends Phaser.Scene {
       { x: 1, y: 1 } // if set to 0, dont move , -1 start to move to right, 1 startt to move to left
     );
 
+    this.ladder4 = this.ladder
+      .createElem(850, 500, "ladder")
+      .setScale(1, 1)
+      .refreshBody();
+    this.ladder4.setSize(this.ladder4.width / 5, this.ladder4.height, true);
+
     //enemies generation
     this.enemies.add(
       new EnemyBasic(this, 337, 418, "Julie001", null, 174, 560)
+    );
+
+    this.enemies.add(
+      new EnemyBasic(this, 300, 810, "Julie001", null, 300, 560)
+    );
+
+    this.enemies.add(
+      new EnemyBasic(this, 460, 580, "Julie001", null, 460, 615)
+    );
+    
+    this.enemies.add(
+      new EnemyBasic(this, 640, 340, "Julie001", null, 640, 819)
+    );
+
+    this.enemies.add(
+      new EnemyBasic(this, 910, 750, "Julie001", null, 910, 1230)
+    );
+
+    this.enemies.add(
+      new EnemyBasic(this, 1130, 1040, "Julie001", null, 860, 1130)
+    );
+
+    this.enemies.add(
+      new EnemyBasic(this, 1760, 780, "Julie001", null, 1760, 1810)
+    );
+    
+    this.enemies.add(
+      new EnemyBasic(this, 1330, 190, "Julie001", null, 1330, 1400)
     );
 
     // the player and set it's property
@@ -301,7 +332,7 @@ class GameScene2 extends Phaser.Scene {
     if (data.player) {
       hp = data.player.hp;
     }
-    this.player = new Player(this, 94, 1088, true, hp);
+    this.player = new Player(this, 50, 1050, true, hp);
 
     for (i = 1; 1850 + i * 32 <= 3400; i++) {
       this.platformUp.createPlatforms(1800 + i * 32, 1136, "ground-tile");
