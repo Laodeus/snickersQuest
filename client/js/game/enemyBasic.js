@@ -51,7 +51,7 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
       "J'ai faim !"
     ];
     this.bubbleShow();
-    this.bubleChangeText();
+    this.lastTextChange = 0;
   }
 
   choseDirection() {
@@ -87,6 +87,7 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
     if (this.bubble) {
       this.bubbleUpdate();
     }
+    this.bubleChangeText();
   }
 
   takeDmg(dmg) {
@@ -126,12 +127,12 @@ class EnemyBasic extends Phaser.Physics.Arcade.Sprite {
   }
 
   bubleChangeText() {
-    if (this.textBubble && this.bubble) {
-      let rng = Phaser.Math.Between(0, this.texts.length - 1);
-      this.textBubble.text = this.texts[rng];
-      setTimeout(() => {
-        this.bubleChangeText();
-      }, 1000);
+    if (Date.now() - this.lastTextChange > 1000) {
+      if (this.textBubble && this.bubble) {
+        let rng = Phaser.Math.Between(0, this.texts.length - 1);
+        this.textBubble.text = this.texts[rng];
+      }
+      this.lastTextChange = Date.now();
     }
   }
 }

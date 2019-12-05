@@ -1,13 +1,37 @@
 class TrappFire extends Trapp {
   constructor(scene, x, y, angle, delay, power) {
     super(scene, x, y, "trappFire");
+    //Remove this later
+    this.rngId = Phaser.Math.Between(0, 100);
+    this.textBubble = this.scene.add.text(this.x, this.y, this.rngId, {
+      fontFamily: '"Roboto Condensed"',
+      color: "black"
+    });
+
     this.body.setAllowGravity(false);
     this.angle = angle;
+    //replace hitbox + offset
+    if (this.angle % 90 != 0) {
+      this.angle = 0;
+      console.warn("the angle of the fire trapp must be a multiple of 90");
+    }
+    if (this.angle === 0) {
+      this.setSize(this.width / 1.9, this.width / 2).setOffset(23, 1);
+    } else if (this.angle === -180) {
+      this.setSize(this.width / 1.9, this.width / 2).setOffset(
+        23,
+        160 + this.width / 2
+      );
+    } else if (this.angle === 90) {
+      this.setSize(this.width / 2.5, this.width / 1.9).setOffset(125, 100);
+    } else if (this.angle === -90) {
+      this.setSize(this.width / 2.5, this.width / 1.9).setOffset(-68, 100);
+    }
+
     this.delay = delay;
     this.power = power;
     this.lastTrigger = 0;
     this.canTrigger = true;
-    this.debug = true;
     this.initAnimation();
   }
 
@@ -45,15 +69,24 @@ class TrappFire extends Trapp {
   trigger() {
     if (Date.now() - this.lastTrigger > this.delay && this.canTrigger) {
       this.canTrigger = false;
+      this.lastTrigger = Date.now();
       this.Openanim = this.scene.anims.get("ALLTrappFire"); // define a listener on the opendoor anims
-      this.anims.play("ALLTrappFire");
+
+      this.Openanim.on("start", () => {
+        console.log("potatoes");
+      });
 
       this.Openanim.on("complete", () => {
-        this.anims.play("startTrappFire");
-        this.lastTrigger = Date.now();
-        this.canTrigger = true;
-        this.debug = false;
+        if (
+          this.anims &&
+          Date.now() - this.lastTrigger >= this.anims.duration
+        ) {
+          this.anims.play("startTrappFire");
+          this.canTrigger = true;
+        }
       });
+
+      this.anims.play("ALLTrappFire");
     }
   }
 }
