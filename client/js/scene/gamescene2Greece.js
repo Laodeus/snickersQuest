@@ -203,6 +203,11 @@ class GameScene2 extends Phaser.Scene {
       .createPlatforms(0, 150, "groundSmall")
       .setScale(2, 1)
       .refreshBody();
+    //trapp generation
+    this.trapps.createTrap("Arrow", 780, 953, 90, 2500, 900);
+    this.trapps.createTrap("Fire", 650, 900, 90, 2500, 0);
+    this.trapps.createTrap("Fire", 650, 1000, 90, 4000, 0);
+    this.trapps.createTrap("Fire", 650, 1100, 90, 3000, 0);
 
     for (i = 1; i <= 8; i++) {
       this.platforms.create(300, 400 - i * 32, "wall-tile");
@@ -319,7 +324,7 @@ class GameScene2 extends Phaser.Scene {
     this.enemies.add(
       new EnemyBasic(this, 460, 580, "Julie001", null, 460, 615)
     );
-    
+
     this.enemies.add(
       new EnemyBasic(this, 640, 340, "Julie001", null, 640, 819)
     );
@@ -335,7 +340,7 @@ class GameScene2 extends Phaser.Scene {
     this.enemies.add(
       new EnemyBasic(this, 1760, 780, "Julie001", null, 1760, 1810)
     );
-    
+
     this.enemies.add(
       new EnemyBasic(this, 1330, 190, "Julie001", null, 1330, 1400)
     );
