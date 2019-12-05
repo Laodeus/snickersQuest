@@ -72,10 +72,6 @@ class TrappFire extends Trapp {
       this.lastTrigger = Date.now();
       this.Openanim = this.scene.anims.get("ALLTrappFire"); // define a listener on the opendoor anims
 
-      this.Openanim.on("start", () => {
-        console.log("potatoes");
-      });
-
       this.Openanim.on("complete", () => {
         if (
           this.anims &&

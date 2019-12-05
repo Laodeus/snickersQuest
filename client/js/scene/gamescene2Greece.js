@@ -11,7 +11,7 @@ class GameScene2 extends Phaser.Scene {
     });
 
     this.load.spritesheet("Boss", "assets/game/scene2/Boss.png", {
-      frameWidth: 420,
+      frameWidth: 456,
       frameHeight: 300
     });
 
@@ -345,7 +345,7 @@ class GameScene2 extends Phaser.Scene {
       new EnemyBasic(this, 1330, 190, "Julie001", null, 1330, 1400)
     );
 
-    this.boss = new Boss(this, 2500, 800,"Boss");
+    this.boss = new Boss(this, 2500, 990,"Boss");
     
     //trapp generation
     this.trapps.createTrap("Arrow", 780, 953, -90, 2500, 900);
@@ -368,12 +368,11 @@ class GameScene2 extends Phaser.Scene {
     if (data.player) {
       hp = data.player.hp;
     }
-    this.player = new Player(this, 50, 1000, true, hp);
+    this.player = new Player(this, 2000, 1000, true, hp);
 
     for (i = 1; 1850 + i * 32 <= 3400; i++) {
       this.platformUp.createPlatforms(1800 + i * 32, 1136, "ground-tile");
     }
-
     //Here, i will play with the camera stuff ^^
     this.cameras.main.startFollow(this.player);
     this.cameras.main.setBounds(

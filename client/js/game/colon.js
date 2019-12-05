@@ -27,6 +27,7 @@ class Colon extends Phaser.Physics.Arcade.Sprite {
 
     //collider with platforms
     this.collider = this.scene.physics.add.collider(this, this.scene.platforms);
+    this.collider = this.scene.physics.add.collider(this, this.scene.boss.boobs,this.scene.boss.takeDmg(this.scene.player.colonDmg));
     this.collider = this.scene.physics.add.collider(
       this,
       this.scene.movingPlatform.group,

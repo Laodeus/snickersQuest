@@ -6,6 +6,7 @@ var GameScene1 = new Phaser.Class({
 
     },
     create:()=>{
+        
 
     },
     update:()=>{
