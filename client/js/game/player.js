@@ -32,6 +32,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.keyD = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.keyM = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
     this.keyL = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
+    this.keyK = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
     this.keySpace = scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
@@ -42,8 +43,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.setupHUD();
 
     this.anims.play("idleLenyRight", true);
-        this.setSize(this.width/2, this.height, true)
-
+    this.setSize(this.width/2, this.height*0.6, true).setOffset(24,36);
+    return this;
   }
 
   initAnimations() {
@@ -161,6 +162,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       console.log("m")
       this.scene.cameras.main.setZoom(0.5)
       
+    }
+
+    if (this.keyK.isDown) {
+      console.log("m")
+      this.scene.scene.restart();
     }
 
     this.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {

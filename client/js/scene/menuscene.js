@@ -32,7 +32,7 @@ class MenuScene extends Phaser.Scene {
     this.btnStart.on(
       "pointerdown",
       function() {
-        this.scene.start("GameScene1", {});
+        this.scene.start("GameScene1");
       },
       this
     );
