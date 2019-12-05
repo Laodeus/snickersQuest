@@ -9,7 +9,17 @@ class TrappFire extends Trapp {
     });
 
     this.body.setAllowGravity(false);
+
     this.angle = angle;
+    this.correctAngle();
+
+    this.delay = delay;
+    this.power = power;
+    this.lastTrigger = 0;
+    this.canTrigger = true;
+    this.initAnimation();
+  }
+  correctAngle() {
     //replace hitbox + offset
     if (this.angle % 90 != 0) {
       this.angle = 0;
@@ -27,12 +37,6 @@ class TrappFire extends Trapp {
     } else if (this.angle === -90) {
       this.setSize(this.width / 2.5, this.width / 1.9).setOffset(-68, 100);
     }
-
-    this.delay = delay;
-    this.power = power;
-    this.lastTrigger = 0;
-    this.canTrigger = true;
-    this.initAnimation();
   }
 
   initAnimation() {
@@ -68,25 +72,18 @@ class TrappFire extends Trapp {
 
   trigger() {
     if (Date.now() - this.lastTrigger > this.delay && this.canTrigger) {
+      this.timeTrigger = Date.now();
       this.canTrigger = false;
-      this.lastTrigger = Date.now();
       this.Openanim = this.scene.anims.get("ALLTrappFire"); // define a listener on the opendoor anims
-
-      this.Openanim.on("start", () => {
-        console.log("potatoes");
-      });
+      this.anims.play("ALLTrappFire");
 
       this.Openanim.on("complete", () => {
-        if (
-          this.anims &&
-          Date.now() - this.lastTrigger >= this.anims.duration
-        ) {
+        if (Date.now() - this.timeTrigger >= this.Openanim.duration - 200) {
+          this.lastTrigger = Date.now();
           this.anims.play("startTrappFire");
           this.canTrigger = true;
         }
       });
-
-      this.anims.play("ALLTrappFire");
     }
   }
 }
