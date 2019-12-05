@@ -144,7 +144,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.hearts = [];
 
     for (let i = 0; i < this.hp; i++) {
-      console.log("heart");
       this.hearts.push(this.scene.add.image(50 + i * 50, 50, "heart"));
       this.hearts[i].setScrollFactor(0, 0);
     }
