@@ -78,7 +78,10 @@ class TrappFire extends Trapp {
       this.anims.play("ALLTrappFire");
 
       this.Openanim.on("complete", () => {
-        if (Date.now() - this.timeTrigger >= this.Openanim.duration - 200) {
+        if (
+          this.anims &&
+          Date.now() - this.timeTrigger >= this.Openanim.duration - 200
+        ) {
           this.lastTrigger = Date.now();
           this.anims.play("startTrappFire");
           this.canTrigger = true;
