@@ -158,7 +158,7 @@ class GameScene2 extends Phaser.Scene {
       120,
       660,
       "movingPillar",
-      "platform/cardbox-0002.png",
+      null,
       { x: 10, y: 0 }, // from where
       { x: 150, y: 0 }, // to where
       { x: 1, y: 0 }, // moving speed
@@ -213,7 +213,7 @@ class GameScene2 extends Phaser.Scene {
       840,
       320,
       "movingPillar",
-      "platform/cardbox-0002.png",
+      null,
       { x: 0, y: 0 }, // from where
       { x: 150, y: 0 }, // to where
       { x: 1, y: 0 }, // moving speed
@@ -226,7 +226,7 @@ class GameScene2 extends Phaser.Scene {
       1200,
       320,
       "movingPillar",
-      "platform/cardbox-0002.png",
+      null,
       { x: 0, y: 0 }, // from where
       { x: 150, y: 0 }, // to where
       { x: 1, y: 0 }, // moving speed
@@ -284,7 +284,7 @@ class GameScene2 extends Phaser.Scene {
       1700,
       550,
       "movingPillar",
-      "platform/cardbox-0002.png",
+      null,
       { x: 300, y: 0 }, // from where
       { x: 0, y: 150 }, // to where
       { x: 1, y: 1 }, // moving speed
@@ -295,7 +295,7 @@ class GameScene2 extends Phaser.Scene {
       600,
       350,
       "movingPillar",
-      "platform/cardbox-0002.png",
+      null,
       { x: 300, y: 300 }, // from where
       { x: 0, y: 0 }, // to where
       { x: 2, y: 2 }, // moving speed
@@ -341,7 +341,7 @@ class GameScene2 extends Phaser.Scene {
       new EnemyBasic(this, 1330, 190, "Julie001", null, 1330, 1400)
     );
 
-    this.boss = new Boss(this, 2500, 990, "Boss");
+    this.boss = new Boss(this, 3176, 990, "Boss");
 
     //trapp generation
     this.trapps.createTrap("Arrow", 780, 953, -90, 2500, 900);
@@ -363,7 +363,10 @@ class GameScene2 extends Phaser.Scene {
     if (data.player) {
       hp = data.player.hp;
     }
-    this.player = new Player(this, 100, 1000, true, hp);
+
+    // this.player = new Player(this, 100, 1000, true, hp);
+    //boss on work
+    this.player = new Player(this, 2300, 1000, true, hp);
 
     for (i = 1; 1850 + i * 32 <= 3400; i++) {
       this.platformUp.createPlatforms(1800 + i * 32, 1136, "ground-tile");
