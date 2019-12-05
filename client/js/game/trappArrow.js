@@ -6,7 +6,8 @@ class TrappArrow extends Trapp {
     this.delay = delay;
     this.power = power;
     this.arrows = [];
-    this.lastTrigger = null;
+    this.lastTrigger = 0;
+    this.lastRemove = 0;
   }
 
   trigger() {
@@ -23,6 +24,12 @@ class TrappArrow extends Trapp {
         )
       );
       this.lastTrigger = Date.now();
+    }
+    //delete de l'arrow
+    if (Date.now() - this.lastRemove >= this.delay) {
+      this.arrows[0].destroy();
+      this.arrows = this.arrows.slice(0, 1);
+      this.lastRemove = Date.now();
     }
   }
 }
