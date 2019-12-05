@@ -340,15 +340,22 @@ class GameScene2 extends Phaser.Scene {
     this.trapps.createTrap("Arrow", 0, 200, 90, 3000, 1800);
     this.trapps.createTrap("Arrow", 270, 300, -90, 3000, 1800);
     this.trapps.createTrap("Arrow", 0, 350, 90, 3000, 1800);
+    
+    this.trapps.createTrap("Arrow", 330, 350, 90, 3000, 1800);
+    
+    this.trapps.createTrap("Arrow", 1328, 1200, 0, 3000, 1800);
+    this.trapps.createTrap("Arrow", 1436, 1200, 0, 3000, 1800);
+    this.trapps.createTrap("Arrow", 1536, 1200, 0, 3000, 1800);
 
-    this.trapps.createTrap("Fire", 750, 900, 0, 2500, 0);
+
+    this.trapps.createTrap("Fire", 750, 900, 90, 2500, 0);
 
     // the player and set it's property
     let hp = 5;
     if (data.player) {
       hp = data.player.hp;
     }
-    this.player = new Player(this, 0, 50, true, hp);
+    this.player = new Player(this, 1370, 1080, true, hp);
 
     for (i = 1; 1850 + i * 32 <= 3400; i++) {
       this.platformUp.createPlatforms(1800 + i * 32, 1136, "ground-tile");
