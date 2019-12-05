@@ -20,14 +20,15 @@ class TrappArrow extends Trapp {
           "arrowB",
           this.angle,
           200,
-          this.power
+          this.power,
+          this.delay
         )
       );
+
       this.lastTrigger = Date.now();
     }
     //delete de l'arrow
     if (Date.now() - this.lastRemove >= this.delay) {
-      this.arrows[0].destroy();
       this.arrows = this.arrows.slice(0, 1);
       this.lastRemove = Date.now();
     }
