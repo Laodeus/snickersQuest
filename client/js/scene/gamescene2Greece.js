@@ -9,6 +9,12 @@ class GameScene2 extends Phaser.Scene {
       frameWidth: 91,
       frameHeight: 95
     });
+
+    this.load.spritesheet("Boss", "assets/game/scene2/Boss.png", {
+      frameWidth: 420,
+      frameHeight: 300
+    });
+
     this.load.spritesheet("Julie001", "assets/game/julie001.png", {
       frameWidth: 86,
       frameHeight: 120
@@ -197,9 +203,6 @@ class GameScene2 extends Phaser.Scene {
       .createPlatforms(0, 150, "groundSmall")
       .setScale(2, 1)
       .refreshBody();
-    //trapp generation
-    this.trapps.createTrap("Arrow", 780, 953, -90, 2500, 900);
-    this.trapps.createTrap("Fire", 750, 900, 0, 2500, 0);
 
     for (i = 1; i <= 8; i++) {
       this.platforms.create(300, 400 - i * 32, "wall-tile");
@@ -337,12 +340,30 @@ class GameScene2 extends Phaser.Scene {
       new EnemyBasic(this, 1330, 190, "Julie001", null, 1330, 1400)
     );
 
+    this.boss = new Boss(this, 2500, 800,"Boss");
+    
+    //trapp generation
+    this.trapps.createTrap("Arrow", 780, 953, -90, 2500, 900);
+
+    this.trapps.createTrap("Arrow", 0, 200, 90, 3000, 1800);
+    this.trapps.createTrap("Arrow", 270, 300, -90, 3000, 1800);
+    this.trapps.createTrap("Arrow", 0, 350, 90, 3000, 1800);
+    
+    this.trapps.createTrap("Arrow", 330, 350, 90, 3000, 1800);
+    
+    this.trapps.createTrap("Arrow", 1328, 1200, 0, 3000, 1800);
+    this.trapps.createTrap("Arrow", 1436, 1200, 0, 3000, 1800);
+    this.trapps.createTrap("Arrow", 1536, 1200, 0, 3000, 1800);
+
+
+    this.trapps.createTrap("Fire", 750, 900, 90, 2500, 0);
+
     // the player and set it's property
     let hp = 5;
     if (data.player) {
       hp = data.player.hp;
     }
-    this.player = new Player(this, 50, 1050, true, hp);
+    this.player = new Player(this, 50, 1000, true, hp);
 
     for (i = 1; 1850 + i * 32 <= 3400; i++) {
       this.platformUp.createPlatforms(1800 + i * 32, 1136, "ground-tile");
@@ -394,7 +415,12 @@ class GameScene2 extends Phaser.Scene {
     //trap collider
     this.physics.add.collider(this.trapps.group, this.platforms);
     this.physics.add.collider(this.trapps.group, this.platformUp.group);
+
+    // boss collider
+    this.physics.add.collider(this.boss, this.platforms);
+    this.physics.add.collider(this.boss, this.platformUp.group);
   }
+
   update() {
     this.player.move();
     this.enemies.children.iterate(enemy => {
