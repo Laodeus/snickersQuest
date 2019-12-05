@@ -14,6 +14,8 @@ class GameScene2 extends Phaser.Scene {
       frameWidth: 456,
       frameHeight: 300
     });
+    this.load.image("postit", "assets/game/scene2/post-it.png");
+    this.load.image("bic", "assets/game/scene2/bic.png");
 
     this.load.spritesheet("Julie001", "assets/game/julie001.png", {
       frameWidth: 86,
@@ -84,6 +86,7 @@ class GameScene2 extends Phaser.Scene {
     );
 
     this.load.image("groundSmall", "assets/game/scene2/groundSmall.png");
+    this.load.image("emptyBubble", "assets/game/emptyBubble.png");
 
     this.load.multiatlas(
       "spritesheet",
@@ -276,6 +279,11 @@ class GameScene2 extends Phaser.Scene {
     this.platformUp.createPlatforms(1750, 840, "groundSmall");
     this.platformUp.createPlatforms(1800, 770, "groundSmall");
 
+    //boss zone
+    this.platformUp.createPlatforms(1987, 1050, "groundSmall");
+    this.platformUp.createPlatforms(1920, 1000, "groundSmall");
+    this.platformUp.createPlatforms(2000, 950, "groundSmall");
+
     for (i = 1; 700 + i * 32 < 1200; i++) {
       this.platforms.create(1850, 700 + i * 32, "wall-tile");
     }
@@ -364,9 +372,9 @@ class GameScene2 extends Phaser.Scene {
       hp = data.player.hp;
     }
 
-    // this.player = new Player(this, 100, 1000, true, hp);
+    this.player = new Player(this, 100, 1000, true, hp);
     //boss on work
-    this.player = new Player(this, 2300, 1000, true, hp);
+    // this.player = new Player(this, 2300, 1000, true, hp);
 
     for (i = 1; 1850 + i * 32 <= 3400; i++) {
       this.platformUp.createPlatforms(1800 + i * 32, 1136, "ground-tile");
@@ -430,6 +438,8 @@ class GameScene2 extends Phaser.Scene {
     });
     this.movingPlatform.move();
     this.trapps.trigger();
+
+    this.boss.move();
 
     this.coord.setText(`x:${this.player.x / 1}, y:${this.player.y / 1}`);
     this.coord.x = this.player.x - 50;

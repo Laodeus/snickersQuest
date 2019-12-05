@@ -318,4 +318,22 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       this.lastLostHp = Date.now();
     }
   }
+  loseHpBoss() {
+    if (Date.now() - this.lastLostHp > 1500) {
+      this.hp -= 1;
+      this.hearts[this.hearts.length - 1].destroy();
+      this.hearts = this.hearts.slice(0, this.hearts.length - 1);
+      if (this.hp <= 0) {
+        this.scene.cameras.main.fade(2000, 0, 0, 0, null, (event, state) => {
+          if (state == 1) {
+            console.log("launch");
+            this.scene.scene.start("MenuScene");
+            this.scene.data = {};
+            //disable move + body +...
+          }
+        });
+      }
+      this.lastLostHp = Date.now();
+    }
+  }
 }
