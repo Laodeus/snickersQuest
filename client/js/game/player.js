@@ -43,7 +43,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.setupHUD();
 
     this.anims.play("idleLenyRight", true);
-    this.setSize(this.width/2, this.height*0.6, true).setOffset(24,36);
+    this.setSize(this.width / 2, this.height * 0.6, true).setOffset(24, 36);
     return this;
   }
 
@@ -138,7 +138,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       this
     );
   }
-  
 
   setupHUD() {
     this.hearts = [];
@@ -152,19 +151,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   move() {
     //at the end of the unbreakabke animations, just start a idle animation + launch the attack
     if (this.keyM.isDown) {
-      console.log("m")
-      this.scene.cameras.main.setZoom(0.3)
-      
+      console.log("map");
+      this.scene.cameras.main.setZoom(0.3);
     }
 
     if (this.keyL.isDown) {
-      console.log("m")
-      this.scene.cameras.main.setZoom(0.5)
-      
+      console.log("zoom");
+      this.scene.cameras.main.setZoom(1);
     }
 
     if (this.keyK.isDown) {
-      console.log("m")
+      console.log("restart");
       this.scene.scene.restart();
     }
 
@@ -208,24 +205,21 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play("rightLeny", true);
       }
       if (this.keyZ.isDown) {
-        if(this.onLadder){
+        if (this.onLadder) {
           this.setGravityY(0);
           this.y -= 4;
-        }
-        else{
+        } else {
           this.setVelocityY(-300);
           this.jumpVel = 450;
         }
         this.onLadder = false;
-        
       }
       if (this.keyS.isDown) {
-        if(this.onLadder){
+        if (this.onLadder) {
           this.setGravityY(0);
           this.y += 5;
         }
         this.onLadder = false;
-        
       }
     }
     //move to left || right during the jump with a decrease of the velocity
