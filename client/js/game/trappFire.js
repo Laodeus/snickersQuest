@@ -8,9 +8,14 @@ class TrappFire extends Trapp {
     //   color: "black"
     // });
 
+    this.h = this.height;
+    this.w = this.width;
+
     this.body.setAllowGravity(false);
+    this.body.enable = false;
 
     this.angle = angle;
+    this.angleModyfied = true;
     this.correctAngle();
 
     this.delay = delay;
@@ -20,22 +25,33 @@ class TrappFire extends Trapp {
     this.initAnimation();
   }
   correctAngle() {
-    //replace hitbox + offset
-    if (this.angle % 90 != 0) {
-      this.angle = 0;
-      console.warn("the angle of the fire trapp must be a multiple of 90");
-    }
-    if (this.angle === 0) {
-      this.setSize(this.width / 1.9, this.width / 2).setOffset(23, 1);
-    } else if (this.angle === -180) {
-      this.setSize(this.width / 1.9, this.width / 2).setOffset(
-        23,
-        160 + this.width / 2
-      );
-    } else if (this.angle === 90) {
-      this.setSize(this.width / 2.5, this.width / 1.9).setOffset(125, 100);
-    } else if (this.angle === -90) {
-      this.setSize(this.width / 2.5, this.width / 1.9).setOffset(-68, 100);
+    this.body.enable = false;
+
+    if (this.angleModyfied) {
+      console.log("angle reset");
+      if (this.angle % 90 != 0) {
+        //replace hitbox + offset
+        this.angle = 0;
+        console.warn("the angle of the fire trapp must be a multiple of 90");
+      }
+      if (this.angle === 0) {
+        console.log(this.y, this);
+
+        this.setSize(this.width / 1.9, this.width / 2).setOffset(23, 1);
+
+        console.log(this.y, this);
+      } else if (this.angle === -180) {
+        this.setSize(this.width / 1.9, this.width / 2).setOffset(
+          23,
+          160 + this.width / 2
+        );
+      } else if (this.angle === 90) {
+        this.setSize(this.width / 2.5, this.width / 1.9).setOffset(125, 100);
+      } else if (this.angle === -90) {
+        this.setSize(this.width / 2.5, this.width / 1.9).setOffset(-68, 100);
+      }
+      this.setSize(this.width / 1.9, this.height);
+      this.angleModyfied = false;
     }
   }
 
@@ -76,17 +92,46 @@ class TrappFire extends Trapp {
       this.canTrigger = false;
       this.Openanim = this.scene.anims.get("ALLTrappFire"); // define a listener on the opendoor anims
       this.anims.play("ALLTrappFire");
+      this.Openanim.on("start", () => {
+        if (this.y === 953) console.log(this.y);
+      });
 
       this.Openanim.on("complete", () => {
         if (
           this.anims &&
-          Date.now() - this.timeTrigger >= this.Openanim.duration - 200
+          Date.now() - this.timeTrigger >= this.Openanim.duration - 300
         ) {
           this.lastTrigger = Date.now();
           this.anims.play("startTrappFire");
           this.canTrigger = true;
         }
       });
+    }
+    this.biggerFlameBox();
+  }
+  biggerFlameBox() {
+    this.body.enable = true;
+    if (
+      this.anims.currentAnim.key === "ALLTrappFire" &&
+      this.anims.currentFrame.index >= 15
+    ) {
+      if (this.angle === 0) {
+        let step = 14.75;
+        let maxStep = 14;
+        let actualStep = Math.abs(this.anims.currentFrame.index - maxStep);
+
+        this.setSize(
+          this.width / 1.9,
+          this.width / 2 + actualStep * step
+        ).setOffset(13, 5);
+      }
+    } else if (
+      (this.anims.currentAnim.key === "ALLTrappFire" &&
+        this.anims.currentFrame.index < 15) ||
+      this.anims.currentAnim.key != "ALLTrappFire"
+    ) {
+      if (this.y === 953) console.log("reset angle");
+      this.correctAngle();
     }
   }
 }

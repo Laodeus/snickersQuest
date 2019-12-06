@@ -363,9 +363,10 @@ class GameScene2 extends Phaser.Scene {
     this.trapps.createTrap("Arrow", 1436, 1200, 0, 3000, 1800);
     this.trapps.createTrap("Arrow", 1536, 1200, 0, 3000, 1800);
 
-    this.trapps.createTrap("Fire", 570, 550, 90, 2500, 0);
-    this.trapps.createTrap("Fire", 670, 300, 0, 2500, 0);
-    this.trapps.createTrap("Fire", 780, 953, 0, 2500, 0);
+    //not working :(
+    // this.trapps.createTrap("Fire", 570, 550, 90, 2500, 0);
+    // this.trapps.createTrap("Fire", 670, 300, 0, 2500, 0);
+    // this.trapps.createTrap("Fire", 780, 953, 0, 4000, 0);
 
     // the player and set it's property
     let hp = 5;
