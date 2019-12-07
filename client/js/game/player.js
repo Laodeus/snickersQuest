@@ -2,6 +2,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, colon = false, hp = 5) {
     super(scene, x, y, "Leny");
     this.scene = scene;
+
     // display player
     this.scene.sys.displayList.add(this);
     //??? this make potatoes
@@ -33,6 +34,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.keyM = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
     this.keyL = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.L);
     this.keyK = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
+
     this.keySpace = scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
@@ -150,20 +152,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
   move() {
     //at the end of the unbreakabke animations, just start a idle animation + launch the attack
-    if (this.keyM.isDown) {
-      console.log("map");
-      this.scene.cameras.main.setZoom(0.3);
-    }
+    // if (this.keyM.isDown) {
+    //   console.log("map");
+    //   this.scene.cameras.main.setZoom(0.3);
+    // }
 
-    if (this.keyL.isDown) {
-      console.log("zoom");
-      this.scene.cameras.main.setZoom(1);
-    }
+    // if (this.keyL.isDown) {
+    //   console.log("zoom");
+    //   this.scene.cameras.main.setZoom(1);
+    // }
 
-    if (this.keyK.isDown) {
-      console.log("restart");
-      this.scene.scene.restart();
-    }
+    // if (this.keyK.isDown) {
+    //   console.log("restart");
+    //   this.scene.scene.restart();
+    // }
 
     this.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
       if (this.unbreakablesAnims.includes(this.anims.currentAnim.key))
