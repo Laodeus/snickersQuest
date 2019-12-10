@@ -14,7 +14,7 @@ class LandingScene extends Phaser.Scene {
     this.input.on(
       "pointerup",
       function(pointer) {
-        this.scene.start("MenuScene");
+        this.scene.start("GameScene1");
       },
       this
     );
